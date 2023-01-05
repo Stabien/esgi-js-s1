@@ -43,6 +43,7 @@ main {
   padding: 15px;
   flex-wrap: wrap;
   height: calc(100vh - 40px);
+  width: fit-content;
 }
 
 .icon-container {
@@ -50,10 +51,10 @@ main {
   flex-direction: column;
   width: 100px;
   height: 80px;
+  padding-top: 2px;
   box-sizing: border-box;
-  padding: 5px;
   border: 2px solid transparent;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 
 .icon-container h2 {
@@ -61,6 +62,8 @@ main {
   color: white;
   width: fit-content;
   margin: auto;
+  margin-top: 5px;
+  cursor: default;
 }
 
 .icon-container img {
@@ -72,4 +75,33 @@ main {
 .icon-container:hover {
   background: rgb(235, 244, 251, 0.3);
   border: 2px solid rgb(235, 244, 251, 0.5);
+}
+
+/* Window */
+.window-container {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+}
+
+.window-header {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.header-title-container {
+  width: 70%;
+  padding: 5px;
+}
+
+.header-buttons-container {
+  background: red;
+  width: 30%;
+  padding: 5px;
 }
