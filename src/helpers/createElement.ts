@@ -6,15 +6,15 @@ import { Attribute } from '../types'
  */
 export const createElement = (
   tagName: string,
-  attributes: Attribute | undefined = undefined,
+  attributes: Attribute | null = null,
 ): HTMLElement => {
   const element: HTMLElement = document.createElement(tagName)
 
-  if (typeof attributes !== undefined) {
-    const attributeKeys = Object.keys(attributes as Attribute)
+  if (attributes !== null) {
+    const attributeKeys = Object.keys(attributes)
 
     for (const attributeKey of attributeKeys) {
-      element.setAttribute(attributeKey, (attributes as Attribute)[attributeKey])
+      element.setAttribute(attributeKey, attributes[attributeKey])
     }
   }
 
