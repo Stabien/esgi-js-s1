@@ -1,5 +1,5 @@
-import { createElement } from '../helpers/createElement'
-import { Attributes } from '../types'
+import { createElement, renderTemplate } from '../helpers/createElement'
+import { Attributes, Template } from '../types'
 
 const focusStyle = `
   background-color: rgb(235, 244, 251, 0.7); 
@@ -11,36 +11,41 @@ const defaultStyle = 'background-color: none; border-color: none'
  * Render program icon
  */
 export const icon = (label: string, imagePath: string, action: () => unknown): HTMLElement => {
-  const attributes: Attributes = {
-    container: {
-      class: 'icon-container',
-    },
-    image: {
-      src: imagePath,
-    },
+  const dblclickContainer = (e: Event): void => {
+    const container = e.currentTarget as HTMLElement
+
+    action()
+    container.setAttribute('style', defaultStyle)
   }
 
-  const container = createElement('div', attributes.container)
-  const title = createElement('h2')
-  const image = createElement('img', attributes.image)
+  const template: Template[] = [
+    {
+      tagName: 'div',
+      class: 'icon-container',
+      dblclick: dblclickContainer,
+      children: [
+        {
+          tagName: 'img',
+          src: imagePath,
+        },
+        {
+          tagName: 'h2',
+          text: label,
+        },
+      ],
+    },
+  ]
 
-  title.innerHTML = label
-
-  container.appendChild(image)
-  container.appendChild(title)
-
+  const container = renderTemplate(template)
   // Apply focus style when clicking on icon.
   // If event click is outside icon, apply default style.
   document.addEventListener('click', (e) => {
-    const currentTarget = e.target as HTMLElement
-    if (currentTarget.closest('.icon-container') === container) {
+    const target = e.target as HTMLElement
+    if (target.closest('.icon-container') === container) {
       container.setAttribute('style', focusStyle)
     } else {
       container.setAttribute('style', defaultStyle)
     }
   })
-
-  container.addEventListener('dblclick', action)
-
   return container
 }

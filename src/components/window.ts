@@ -1,43 +1,53 @@
-import { createElement } from '../helpers/createElement'
-import { Attributes } from '../types'
+import { renderTemplate } from '../helpers/createElement'
+import { Template } from '../types'
 
 /**
  * Render window
  */
-export const window = (label: string): void => {
-  const attributes: Attributes = {
-    container: {
+export const window = (label: string, iconPath: string): void => {
+  const template: Template[] = [
+    {
+      tagName: 'div',
       class: 'window-container',
+      children: [
+        {
+          tagName: 'div',
+          class: 'window-header',
+          children: [
+            {
+              tagName: 'div',
+              class: 'window-header-title-container',
+              children: [
+                {
+                  tagName: 'img',
+                  class: 'window-header-icon',
+                  src: iconPath,
+                },
+                {
+                  tagName: 'h2',
+                  class: 'window-header-title',
+                  text: label,
+                },
+              ],
+            },
+            {
+              tagName: 'div',
+              class: 'window-header-buttons-container',
+              text: 'x',
+              click: (e) => {
+                const target = e.currentTarget as EventTarget as HTMLElement
+                const container = target.closest('.window-container') as HTMLElement
+
+                container.remove()
+              },
+            },
+          ],
+        },
+      ],
     },
-    header: {
-      class: 'window-header',
-    },
-    headerTitleContainer: {
-      class: 'header-title-container',
-    },
-    headerButtonsContainer: {
-      class: 'header-buttons-container',
-    },
-  }
+  ]
 
   const body = document.getElementsByTagName('body')[0]
 
-  const container = createElement('div', attributes.container)
-  const header = createElement('div', attributes.header)
-
-  const headerTitleContainer = createElement('div', attributes.headerTitleContainer)
-  const headerButtonsContainer = createElement('div', attributes.headerButtonsContainer)
-
-  headerTitleContainer.innerHTML = label
-
-  headerButtonsContainer.addEventListener('click', () => {
-    container.remove()
-  })
-
-  header.appendChild(headerTitleContainer)
-  header.appendChild(headerButtonsContainer)
-
-  container.appendChild(header)
-
-  body.appendChild(container)
+  renderTemplate(template, body)
 }
