@@ -1,5 +1,5 @@
-import { createElement, renderTemplate } from '../helpers/createElement'
-import { Attributes, Template } from '../types'
+import { renderTemplate } from '../helpers/createElement'
+import { Template } from '../types'
 
 const focusStyle = `
   background-color: rgb(235, 244, 251, 0.7); 
