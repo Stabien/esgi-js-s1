@@ -12,7 +12,7 @@ const main = (): void => {
   for (let i = 0; i < 10; i++) {
     iconList.appendChild(
       icon('Calculatrice', '/icon_calculator.png', () => {
-        window('test')
+        window('Calculatrice', '/icon_calculator.png')
       }),
     )
   }
