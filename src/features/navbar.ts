@@ -1,9 +1,14 @@
-import { createElement } from '../helpers/createElement'
-import { Attribute } from '../types'
+import { Template } from '../types'
+import '../styles/navbar.css'
+import { renderTemplate } from '../helpers/createElement'
 
 export const navbar = (body: HTMLElement): void => {
-  const containerAttributes: Attribute = { class: 'navbar-container' }
-  const container = createElement('div', containerAttributes)
+  const template: Template[] = [
+    {
+      tagName: 'div',
+      class: 'navbar-container',
+    },
+  ]
 
-  body.appendChild(container)
+  renderTemplate(template, body)
 }

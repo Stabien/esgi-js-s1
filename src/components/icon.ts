@@ -1,5 +1,6 @@
 import { renderTemplate } from '../helpers/createElement'
 import { Template } from '../types'
+import '../styles/icon.css'
 
 const focusStyle = `
   background-color: rgb(235, 244, 251, 0.7); 
@@ -11,9 +12,7 @@ const defaultStyle = 'background-color: none; border-color: none'
  * Render program icon
  */
 export const icon = (label: string, imagePath: string, action: () => unknown): HTMLElement => {
-  const dblclickContainer = (e: Event): void => {
-    const container = e.currentTarget as HTMLElement
-
+  const dblclickContainer = (): void => {
     action()
     container.setAttribute('style', defaultStyle)
   }

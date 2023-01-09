@@ -1,23 +1,10 @@
-import { navbar } from './features/navbar'
-import { icon } from './components/icon'
-import { createElement } from './helpers/createElement'
-import { window } from './components/window'
+import layout from './layouts'
+import './styles/index.css'
 
 const main = (): void => {
-  const mainElement = document.getElementsByTagName('main')[0]
-  const iconList = createElement('div', { class: 'icon-list' })
+  const body = document.getElementsByTagName('body')[0]
 
-  mainElement.appendChild(iconList)
-
-  for (let i = 0; i < 10; i++) {
-    iconList.appendChild(
-      icon('Calculatrice', '/icon_calculator.png', () => {
-        window('Calculatrice', '/icon_calculator.png')
-      }),
-    )
-  }
-
-  navbar(mainElement)
+  layout(body)
 }
 
 main()

@@ -1,11 +1,3 @@
-export interface Attribute {
-  [key: string]: string
-}
-
-export interface Attributes {
-  [key: string]: Attribute
-}
-
 export type ListenerFunction = <K extends keyof HTMLElementEventMap>(
   this: HTMLElement,
   ev: HTMLElementEventMap[K],

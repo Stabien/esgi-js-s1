@@ -1,5 +1,6 @@
 import { renderTemplate } from '../helpers/createElement'
 import { Template } from '../types'
+import '../styles/window.css'
 
 /**
  * Render window
@@ -34,12 +35,7 @@ export const window = (label: string, iconPath: string): void => {
               tagName: 'div',
               class: 'window-header-buttons-container',
               text: 'x',
-              click: (e) => {
-                const target = e.currentTarget as EventTarget as HTMLElement
-                const container = target.closest('.window-container') as HTMLElement
-
-                container.remove()
-              },
+              click: () => container.remove(),
             },
           ],
         },
@@ -48,6 +44,5 @@ export const window = (label: string, iconPath: string): void => {
   ]
 
   const body = document.getElementsByTagName('body')[0]
-
-  renderTemplate(template, body)
+  const container = renderTemplate(template, body)
 }

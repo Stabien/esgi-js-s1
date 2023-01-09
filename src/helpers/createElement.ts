@@ -1,35 +1,4 @@
-import { Attribute, ListenerFunction, Template } from '../types'
-
-/**
- * Creates HTML element allowing to pass attributes
- * and children
- */
-export const createElement = (
-  tagName: string,
-  attributes: Attribute | null = null,
-  children: HTMLElement | string | null = null,
-): HTMLElement => {
-  const element: HTMLElement = document.createElement(tagName)
-
-  if (attributes !== null) {
-    const attributeKeys = Object.keys(attributes)
-
-    for (const attributeKey of attributeKeys) {
-      element.setAttribute(attributeKey, attributes[attributeKey])
-    }
-  }
-
-  if (children !== null) {
-    if (typeof children === typeof HTMLElement) {
-      element.appendChild(children as HTMLElement)
-    }
-    if (typeof children === 'string') {
-      element.innerHTML = children
-    }
-  }
-
-  return element
-}
+import { ListenerFunction, Template } from '../types'
 
 const hasChildren = (templateElement: Template): boolean => {
   return Object.prototype.hasOwnProperty.call(templateElement, 'children')
@@ -59,6 +28,10 @@ export const renderTemplate = (
 ): HTMLElement => {
   const templateLength = template.length
   const templateElement: Template = template[index]
+
+  if (templateLength > 1 && parent === null) {
+    throw new Error('Missing parent')
+  }
 
   // Actions
   const htmlElement: HTMLElement = document.createElement(templateElement.tagName as string)
