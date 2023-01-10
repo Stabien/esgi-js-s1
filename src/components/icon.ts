@@ -1,4 +1,4 @@
-import { renderTemplate } from '../helpers/createElement'
+import { renderTemplate } from '../helpers'
 import { Template } from '../types'
 import '../styles/icon.css'
 
@@ -11,10 +11,10 @@ const defaultStyle = 'background-color: none; border-color: none'
 /**
  * Render program icon
  */
-export const icon = (label: string, imagePath: string, action: () => unknown): HTMLElement => {
+const Icon = (label: string, imagePath: string, action: () => unknown): HTMLElement => {
   const dblclickContainer = (): void => {
     action()
-    container.setAttribute('style', defaultStyle)
+    htmlElement.setAttribute('style', defaultStyle)
   }
 
   const template: Template[] = [
@@ -35,16 +35,19 @@ export const icon = (label: string, imagePath: string, action: () => unknown): H
     },
   ]
 
-  const container = renderTemplate(template)
+  const htmlElement = renderTemplate(template) as HTMLElement
+
   // Apply focus style when clicking on icon.
   // If event click is outside icon, apply default style.
   document.addEventListener('click', (e) => {
     const target = e.target as HTMLElement
-    if (target.closest('.icon-container') === container) {
-      container.setAttribute('style', focusStyle)
+    if (target.closest('.icon-container') === htmlElement) {
+      htmlElement.setAttribute('style', focusStyle)
     } else {
-      container.setAttribute('style', defaultStyle)
+      htmlElement.setAttribute('style', defaultStyle)
     }
   })
-  return container
+  return htmlElement
 }
+
+export default Icon

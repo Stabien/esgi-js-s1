@@ -1,14 +1,17 @@
 import { Template } from '../types'
 import '../styles/navbar.css'
-import { renderTemplate } from '../helpers/createElement'
+import { renderTemplate } from '../helpers'
 
-export const navbar = (body: HTMLElement): void => {
+const Navbar = (): HTMLElement => {
   const template: Template[] = [
     {
-      tagName: 'div',
+      tagName: 'nav',
       class: 'navbar-container',
     },
   ]
 
-  renderTemplate(template, body)
+  const htmlElement = renderTemplate(template) as HTMLElement
+  return htmlElement
 }
+
+export default Navbar

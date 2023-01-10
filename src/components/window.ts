@@ -1,11 +1,11 @@
-import { renderTemplate } from '../helpers/createElement'
+import { renderTemplate } from '../helpers'
 import { Template } from '../types'
 import '../styles/window.css'
 
 /**
  * Render window
  */
-export const window = (label: string, iconPath: string): void => {
+const Window = (label: string, iconPath: string): HTMLElement => {
   const template: Template[] = [
     {
       tagName: 'div',
@@ -35,14 +35,16 @@ export const window = (label: string, iconPath: string): void => {
               tagName: 'div',
               class: 'window-header-buttons-container',
               text: 'x',
-              click: () => container.remove(),
+              click: () => htmlElement.remove(),
             },
           ],
         },
       ],
     },
   ]
+  const htmlElement = renderTemplate(template) as HTMLElement
 
-  const body = document.getElementsByTagName('body')[0]
-  const container = renderTemplate(template, body)
+  return htmlElement
 }
+
+export default Window

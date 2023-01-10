@@ -1,10 +1,11 @@
-import layout from './layouts'
+import Layout from './layouts'
 import './styles/index.css'
 
-const main = (): void => {
+const app = (): void => {
   const body = document.getElementsByTagName('body')[0]
+  const layout = Layout()
 
-  layout(body)
+  body.append(layout)
 }
 
-main()
+app()

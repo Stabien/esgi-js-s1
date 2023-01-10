@@ -1,10 +1,10 @@
-import { navbar } from '../features/navbar'
-import { icon } from '../components/icon'
-import { renderTemplate } from '../helpers/createElement'
-import { window } from '../components/window'
+import Navbar from '../features/Navbar'
+import Icon from '../components/Icon'
+import { renderTemplate } from '../helpers'
+import Window from '../components/Window'
 import { Template } from '../types'
 
-const layout = (parent: HTMLElement): HTMLElement => {
+const layout = (): HTMLElement => {
   const template: Template[] = [
     {
       tagName: 'main',
@@ -28,19 +28,21 @@ const layout = (parent: HTMLElement): HTMLElement => {
     },
   ]
 
-  const htmlElement = renderTemplate(template, parent)
+  const htmlElement = renderTemplate(template) as HTMLElement
   const iconList = htmlElement.getElementsByClassName('icon-list')[0]
+  const body = document.getElementsByTagName('body')[0]
+
+  const navbar = Navbar()
 
   for (let i = 0; i < 10; i++) {
     iconList.appendChild(
-      icon('Calculatrice', '/icon_calculator.png', () => {
-        window('Calculatrice', '/icon_calculator.png')
+      Icon('Calculatrice', '/icon_calculator.png', () => {
+        body.appendChild(Window('Calculatrice', '/icon_calculator.png'))
       }),
     )
   }
 
-  navbar(htmlElement)
-  console.log(htmlElement)
+  htmlElement.append(navbar)
 
   return htmlElement
 }
