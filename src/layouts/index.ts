@@ -4,7 +4,7 @@ import { renderTemplate } from '../helpers'
 import Window from '../components/Window'
 import { Template } from '../types'
 
-const layout = (): HTMLElement => {
+const Layout = (): HTMLElement => {
   const template: Template[] = [
     {
       tagName: 'main',
@@ -47,4 +47,4 @@ const layout = (): HTMLElement => {
   return htmlElement
 }
 
-export default layout
+export default Layout

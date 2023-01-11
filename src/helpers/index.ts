@@ -8,6 +8,9 @@ const hasText = (templateElement: Template): boolean => {
   return Object.prototype.hasOwnProperty.call(templateElement, 'text')
 }
 
+/**
+ * Add properties to an HTML element provided by its template
+ */
 const addProperties = (htmlElement: HTMLElement, properties: Template): void => {
   for (const key in properties) {
     if (typeof properties[key] === 'function') {
@@ -21,6 +24,11 @@ const addProperties = (htmlElement: HTMLElement, properties: Template): void => 
   }
 }
 
+/**
+ * Render HTML from from js array using recursion.
+ * If top level array has more than one element returns DocumentFragment.
+ * Otherwise, returns HTMLElement.
+ */
 const callRender = (
   template: Template[],
   parent: HTMLElement | null = null,

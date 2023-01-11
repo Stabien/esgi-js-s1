@@ -7,6 +7,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   background: white;
+  transition: 0.1s;
 }
 
 .window-header {
@@ -25,17 +26,12 @@
 }
 
 .window-header-buttons-container {
-  width: 50px;
-  padding: 5px;
+  display: flex;
+  flex-direction: row;
   text-align: center;
   font-size: 20px;
   cursor: pointer;
   transition: 0.1s;
-}
-
-.window-header-buttons-container:hover {
-  background: red;
-  color: white;
 }
 
 .window-header-title {
@@ -48,4 +44,30 @@
   width: 20px;
   height: 20px;
   margin: auto 0;
+}
+
+.window-header-buttons-container button {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  transition: 0.15s;
+}
+
+.window-header-buttons-container img {
+  width: 15px;
+  height: 15px;
+}
+
+.window-icon-minimize {
+  display: none;
+}
+
+.window-button-hide:hover,
+.window-button-resize:hover {
+  background: #dfdfdf;
+}
+
+.window-button-close:hover {
+  background: red;
 }
