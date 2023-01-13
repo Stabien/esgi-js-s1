@@ -101,7 +101,6 @@ const Window = (label: string, iconPath: string): HTMLElement => {
   ]
 
   const htmlElement = renderTemplate(template) as HTMLElement
-
   return htmlElement
 }
 

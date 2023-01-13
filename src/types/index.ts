@@ -13,3 +13,13 @@ export type TemplateProperty =
 export interface Template {
   [key: string]: TemplateProperty | Template[]
 }
+
+export interface ProxyTarget {
+  [key: string | symbol]: any
+}
+
+export interface AnyObject {
+  [key: string]: any
+}
+
+export type Reactive = AnyObject | [any]

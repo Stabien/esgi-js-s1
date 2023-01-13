@@ -1,6 +1,11 @@
-import { Template } from '../types'
+import { Reactive, Template } from '../types'
 import '../styles/navbar.css'
 import { renderTemplate } from '../helpers'
+import state from '../store/state'
+
+const renderWindowsIcon = (windows: Reactive[], parent: HTMLElement): void => {
+  console.log(windows)
+}
 
 const Navbar = (): HTMLElement => {
   const template: Template[] = [
@@ -11,6 +16,14 @@ const Navbar = (): HTMLElement => {
   ]
 
   const htmlElement = renderTemplate(template) as HTMLElement
+
+  let windows: [] = state.windows
+
+  document.addEventListener('onStateChange', () => {
+    windows = state.windows
+    renderWindowsIcon(windows, htmlElement)
+  })
+
   return htmlElement
 }
 
