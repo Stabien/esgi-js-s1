@@ -1,36 +1,22 @@
 import { renderTemplate } from '../helpers'
-import { Template } from '../types'
+import { removeWindow, resizeWindow, setDisplayWindow } from '../helpers/window'
+import { Template, WindowData } from '../types'
 import '../styles/window.css'
+import { setWindows } from '../store/actions'
+import state from '../store/state'
+import { getIsWindowMaximized } from '../store/getters'
+import { generateUUID } from '../helpers/uuid'
 
 /**
  * Render window
  */
 const Window = (label: string, iconPath: string): HTMLElement => {
-  let isMaximized = false
-
-  const maximizedStyle = 'width: 100vw; height: 100vh;'
-  const defaultStyle = 'width: 400px; height: 400px;'
-
-  const resize = (): void => {
-    const maximizeIcon = document.getElementsByClassName('window-icon-maximize')[0]
-    const minimizeIcon = document.getElementsByClassName('window-icon-minimize')[0]
-
-    if (isMaximized) {
-      htmlElement.setAttribute('style', defaultStyle)
-      maximizeIcon.setAttribute('style', 'display: block')
-      minimizeIcon.setAttribute('style', 'display: none')
-    } else {
-      htmlElement.setAttribute('style', maximizedStyle)
-      maximizeIcon.setAttribute('style', 'display: none')
-      minimizeIcon.setAttribute('style', 'display: block')
-    }
-    isMaximized = !isMaximized
-  }
-
+  const uuid = generateUUID()
   const template: Template[] = [
     {
       tagName: 'div',
       class: 'window-container',
+      'data-uuid': uuid,
       children: [
         {
           tagName: 'div',
@@ -51,6 +37,7 @@ const Window = (label: string, iconPath: string): HTMLElement => {
                 {
                   tagName: 'button',
                   class: 'window-button-hide',
+                  click: () => setDisplayWindow(uuid),
                   children: [
                     {
                       tagName: 'img',
@@ -63,7 +50,7 @@ const Window = (label: string, iconPath: string): HTMLElement => {
                 {
                   tagName: 'button',
                   class: 'window-button-resize',
-                  click: resize,
+                  click: () => resizeWindow(uuid),
                   children: [
                     {
                       tagName: 'img',
@@ -82,7 +69,7 @@ const Window = (label: string, iconPath: string): HTMLElement => {
                 {
                   tagName: 'button',
                   class: 'window-button-close',
-                  click: () => htmlElement.remove(),
+                  click: () => removeWindow(windows, uuid),
                   children: [
                     {
                       tagName: 'img',
@@ -99,8 +86,21 @@ const Window = (label: string, iconPath: string): HTMLElement => {
       ],
     },
   ]
-
   const htmlElement = renderTemplate(template) as HTMLElement
+  const isMaximized = getIsWindowMaximized(htmlElement)
+  const isHidden = getIsWindowMaximized(htmlElement)
+
+  const windows: WindowData[] = state.windows
+  const windowData: WindowData = {
+    uuid,
+    iconPath,
+    htmlElement,
+    isMaximized,
+    isHidden,
+  }
+
+  setWindows([...windows, windowData])
+
   return htmlElement
 }
 
