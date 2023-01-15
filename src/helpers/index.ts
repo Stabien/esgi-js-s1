@@ -32,11 +32,11 @@ const addProperties = (htmlElement: HTMLElement, properties: Template): void => 
 const callRender = (
   template: Template[],
   parent: HTMLElement | null = null,
+  fragment: DocumentFragment | null = null,
   index = 0,
 ): HTMLElement | DocumentFragment => {
   const templateLength = template.length
   const templateElement: Template = template[index]
-  let fragment: DocumentFragment | null = null
 
   const htmlElement: HTMLElement = document.createElement(templateElement.tagName as string)
 
@@ -61,11 +61,11 @@ const callRender = (
 
   // Conditions
   if (hasChildren(templateElement)) {
-    callRender(templateElement.children as Template[], htmlElement)
+    callRender(templateElement.children as Template[], htmlElement, fragment)
   }
 
   if (index + 1 < templateLength) {
-    callRender(template, parent, index + 1)
+    callRender(template, parent, fragment, index + 1)
   }
 
   if (fragment !== null) {
