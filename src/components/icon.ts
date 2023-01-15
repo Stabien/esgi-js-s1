@@ -1,6 +1,7 @@
-import { renderTemplate } from '../helpers'
+import { renderTemplate } from '../helpers/render'
 import { Template } from '../types'
 import '../styles/icon.css'
+import { generateUUID } from '../utils'
 
 const focusStyle = `
   background-color: rgb(235, 244, 251, 0.7); 
@@ -17,10 +18,13 @@ const Icon = (label: string, imagePath: string, action: () => unknown): HTMLElem
     htmlElement.setAttribute('style', defaultStyle)
   }
 
+  const uuid = generateUUID()
+
   const template: Template[] = [
     {
       tagName: 'div',
       class: 'icon-container',
+      'data-uuid': uuid,
       dblclick: dblclickContainer,
       children: [
         {

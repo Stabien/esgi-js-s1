@@ -1,6 +1,6 @@
 import { Template, WindowData } from '../types'
 import '../styles/navbar.css'
-import { renderTemplate } from '../helpers'
+import { renderTemplate } from '../helpers/render'
 import state from '../store/state'
 import { setDisplayWindow } from '../helpers/window'
 

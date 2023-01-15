@@ -1,11 +1,11 @@
-import { renderTemplate } from '../helpers'
+import { renderTemplate } from '../helpers/render'
 import { removeWindow, resizeWindow, setDisplayWindow } from '../helpers/window'
 import { Template, WindowData } from '../types'
 import '../styles/window.css'
 import { setWindows } from '../store/actions'
 import state from '../store/state'
 import { getIsWindowMaximized } from '../store/getters'
-import { generateUUID } from '../helpers/uuid'
+import { generateUUID } from '../utils'
 
 /**
  * Render window
@@ -87,14 +87,13 @@ const Window = (label: string, iconPath: string): HTMLElement => {
     },
   ]
   const htmlElement = renderTemplate(template) as HTMLElement
-  const isMaximized = getIsWindowMaximized(htmlElement)
-  const isHidden = getIsWindowMaximized(htmlElement)
+  const isMaximized = getIsWindowMaximized(uuid)
+  const isHidden = getIsWindowMaximized(uuid)
 
   const windows: WindowData[] = state.windows
   const windowData: WindowData = {
     uuid,
     iconPath,
-    htmlElement,
     isMaximized,
     isHidden,
   }

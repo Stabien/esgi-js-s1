@@ -1,4 +1,3 @@
-import { getElementByUUID } from './getters'
 import state from './state'
 
 export const setWindows = (value: any[]): void => {
@@ -6,18 +5,16 @@ export const setWindows = (value: any[]): void => {
 }
 
 export const setIsWindowMaximized = (windowUUID: string, isMaximized: boolean): void => {
-  const htmlWindow = getElementByUUID(windowUUID)
   for (const index in state.windows) {
-    if (state.windows[index].htmlElement === htmlWindow) {
+    if (state.windows[index].uuid === windowUUID) {
       state.windows[index].isMaximized = isMaximized
     }
   }
 }
 
 export const setIsWindowHidden = (windowUUID: string, isHidden: boolean): void => {
-  const htmlWindow = getElementByUUID(windowUUID)
   for (const index in state.windows) {
-    if (state.windows[index].htmlElement === htmlWindow) {
+    if (state.windows[index].uuid === windowUUID) {
       state.windows[index].isHidden = isHidden
     }
   }

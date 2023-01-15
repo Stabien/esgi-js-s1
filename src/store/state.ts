@@ -1,5 +1,5 @@
 import { State } from '../types'
-import { createState } from './hooks'
+import { createState } from '../helpers/reactivity'
 
 const state = createState({
   windows: [],

@@ -29,7 +29,7 @@ export const removeWindow = (windows: WindowData[], windowUUID: string): void =>
   const htmlWindow = getElementByUUID(windowUUID)
 
   htmlWindow.remove()
-  windows = windows.filter((window) => window.htmlElement !== htmlWindow)
+  windows = windows.filter((window) => window.uuid !== windowUUID)
   setWindows(windows)
 }
 

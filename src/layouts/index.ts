@@ -1,6 +1,6 @@
 import Navbar from '../features/Navbar'
 import Icon from '../components/Icon'
-import { renderTemplate } from '../helpers'
+import { renderTemplate } from '../helpers/render'
 import Window from '../components/Window'
 import { Template } from '../types'
 
