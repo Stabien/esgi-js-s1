@@ -22,4 +22,13 @@ export interface AnyObject {
   [key: string]: any
 }
 
-export type Reactive = AnyObject | [any]
+export type State = AnyObject
+export type Reactive = AnyObject | any[]
+
+export interface WindowData {
+  uuid: string
+  iconPath: string
+  htmlElement: HTMLElement
+  isMaximized: boolean
+  isHidden: boolean
+}

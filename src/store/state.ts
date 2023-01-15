@@ -1,8 +1,9 @@
-import { AnyObject } from '../types'
+import { State } from '../types'
 import { createState } from './hooks'
 
 const state = createState({
   windows: [],
-}) as AnyObject
+  isMobile: false,
+}) as State
 
 export default state

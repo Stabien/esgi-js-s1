@@ -6,7 +6,6 @@ const stateChangeEvent = new CustomEvent('onStateChange')
 export const reactive = (target: any, onChange: any): Reactive => {
   const handler: ProxyHandler<object> = {
     get: (target: ProxyTarget, property: string | symbol) => {
-      console.log(target)
       if (typeof target[property] === 'object' && !reactiveSet.has(target[property])) {
         reactiveSet.add(target[property])
         return new Proxy(target[property], handler)
