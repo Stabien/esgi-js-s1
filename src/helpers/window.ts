@@ -1,25 +1,30 @@
-import { setIsWindowMaximized, setWindows, setIsWindowHidden } from '../store/actions'
+import {
+  setIsWindowMaximized,
+  setWindows,
+  setIsWindowHidden,
+  setIsWindowFocused,
+} from '../store/actions'
 import { getElementByUUID, getIsWindowHidden, getIsWindowMaximized } from '../store/getters'
+import state from '../store/state'
 import { WindowData } from '../types'
 
 export const resizeWindow = (windowUUID: string): void => {
   const htmlWindow = getElementByUUID(windowUUID)
+  const maximizeIcon = htmlWindow.getElementsByClassName('window-icon-maximize')[0] as HTMLElement
+  const minimizeIcon = htmlWindow.getElementsByClassName('window-icon-minimize')[0] as HTMLElement
 
-  const maximizedStyle = 'width: 100vw; height: 100vh;'
-  const defaultStyle = 'width: 400px; height: 400px;'
-
-  const maximizeIcon = htmlWindow.getElementsByClassName('window-icon-maximize')[0]
-  const minimizeIcon = htmlWindow.getElementsByClassName('window-icon-minimize')[0]
   const isMaximized = getIsWindowMaximized(windowUUID)
 
   if (isMaximized) {
-    htmlWindow.setAttribute('style', defaultStyle)
-    maximizeIcon.setAttribute('style', 'display: block')
-    minimizeIcon.setAttribute('style', 'display: none')
+    htmlWindow.style.width = '400px'
+    htmlWindow.style.height = '400px'
+    maximizeIcon.style.display = 'block'
+    minimizeIcon.style.display = 'none'
   } else {
-    htmlWindow.setAttribute('style', maximizedStyle)
-    maximizeIcon.setAttribute('style', 'display: none')
-    minimizeIcon.setAttribute('style', 'display: block')
+    htmlWindow.style.width = '100%'
+    htmlWindow.style.height = '100%'
+    maximizeIcon.style.display = 'none'
+    minimizeIcon.style.display = 'block'
   }
 
   setIsWindowMaximized(windowUUID, !isMaximized)
@@ -33,15 +38,40 @@ export const removeWindow = (windows: WindowData[], windowUUID: string): void =>
   setWindows(windows)
 }
 
-export const setDisplayWindow = (elementUUID: string): void => {
-  const isHidden = getIsWindowHidden(elementUUID)
+export const hideWindow = (elementUUID: string): void => {
   const htmlWindow = getElementByUUID(elementUUID)
 
-  if (isHidden) {
-    htmlWindow.setAttribute('style', 'display: block')
-  } else {
-    htmlWindow.setAttribute('style', 'display: none')
+  htmlWindow.style.display = 'none'
+  htmlWindow.style.zIndex = '0'
+  setIsWindowHidden(elementUUID, true)
+}
+
+export const displayWindow = (elementUUID: string): void => {
+  const htmlWindow = getElementByUUID(elementUUID)
+  const { windows } = state
+
+  for (const window of windows) {
+    const currentHtmlWindow = getElementByUUID(elementUUID)
+    if (window.uuid === elementUUID) {
+      currentHtmlWindow.style.zIndex = '10'
+    } else {
+      currentHtmlWindow.style.zIndex = '0'
+    }
   }
 
+  htmlWindow.style.display = 'block'
+  setIsWindowHidden(elementUUID, false)
+}
+
+export const setDisplayWindow = (elementUUID: string): void => {
+  const isHidden = getIsWindowHidden(elementUUID)
+
+  if (isHidden) {
+    displayWindow(elementUUID)
+  } else {
+    hideWindow(elementUUID)
+  }
+
+  setIsWindowFocused(elementUUID, isHidden)
   setIsWindowHidden(elementUUID, !isHidden)
 }

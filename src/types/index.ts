@@ -30,4 +30,5 @@ export interface WindowData {
   iconPath: string
   isMaximized: boolean
   isHidden: boolean
+  isFocused?: boolean
 }

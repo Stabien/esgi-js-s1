@@ -1,4 +1,4 @@
-import { ProxyTarget, Reactive } from '../types'
+import { ProxyTarget, Reactive, State } from '../types'
 
 const reactiveSet = new WeakSet()
 const stateChangeEvent = new CustomEvent('onStateChange')
@@ -22,7 +22,7 @@ export const reactive = (target: any, onChange: any): Reactive => {
   return new Proxy(target, handler) as Reactive
 }
 
-export const createState = (value: any): Reactive => {
+export const createState = (value: any): State => {
   const onChange = (): void => {
     document.dispatchEvent(stateChangeEvent)
   }

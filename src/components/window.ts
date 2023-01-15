@@ -2,9 +2,9 @@ import { renderTemplate } from '../helpers/render'
 import { removeWindow, resizeWindow, setDisplayWindow } from '../helpers/window'
 import { Template, WindowData } from '../types'
 import '../styles/window.css'
-import { setWindows } from '../store/actions'
+import { setIsWindowFocused, setWindows } from '../store/actions'
 import state from '../store/state'
-import { getIsWindowMaximized } from '../store/getters'
+import { getIsWindowHidden, getIsWindowMaximized } from '../store/getters'
 import { generateUUID } from '../utils'
 
 /**
@@ -88,17 +88,23 @@ const Window = (label: string, iconPath: string): HTMLElement => {
   ]
   const htmlElement = renderTemplate(template) as HTMLElement
   const isMaximized = getIsWindowMaximized(uuid)
-  const isHidden = getIsWindowMaximized(uuid)
+  const isHidden = getIsWindowHidden(uuid)
 
-  const windows: WindowData[] = state.windows
+  let windows: WindowData[] = state.windows
   const windowData: WindowData = {
     uuid,
     iconPath,
     isMaximized,
     isHidden,
+    isFocused: true,
   }
 
+  document.addEventListener('onStateChange', () => {
+    windows = state.windows
+  })
+
   setWindows([...windows, windowData])
+  setIsWindowFocused(uuid, true)
 
   return htmlElement
 }

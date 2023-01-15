@@ -11,6 +11,7 @@ const Layout = (): HTMLElement => {
       children: [
         {
           tagName: 'div',
+          class: 'main-content',
           children: [
             {
               tagName: 'div',
@@ -30,14 +31,14 @@ const Layout = (): HTMLElement => {
 
   const htmlElement = renderTemplate(template) as HTMLElement
   const iconList = htmlElement.getElementsByClassName('icon-list')[0]
-  const body = document.getElementsByTagName('body')[0]
+  const mainContent = htmlElement.getElementsByClassName('main-content')[0]
 
   const navbar = Navbar()
 
   for (let i = 0; i < 10; i++) {
     iconList.appendChild(
       Icon('Calculatrice', '/icon_calculator.png', () => {
-        body.appendChild(Window('Calculatrice', '/icon_calculator.png'))
+        mainContent.appendChild(Window('Calculatrice', '/icon_calculator.png'))
       }),
     )
   }
