@@ -16,6 +16,7 @@
   width: 100%;
   box-sizing: border-box;
   background: #efefef;
+  user-select: none;
 }
 
 .window-header-title-container {
