@@ -1,3 +1,4 @@
+import { querySettingsData } from '../services'
 import state from './state'
 
 export const setWindows = (value: any[]): void => {
@@ -43,4 +44,12 @@ export const setIsWindowFocused = (windowUUID: string, isFocused: boolean): void
 
   // Reassign state.windows to use reactivity
   state.windows = windows
+}
+
+export const initializeSettings = async (): Promise<void> => {
+  const settings = await querySettingsData()
+
+  state.settings = settings
+
+  console.log(state)
 }

@@ -1,5 +1,7 @@
 /* Navbar */
 .navbar-container {
+  display: flex;
+  flex-direction: row;
   width: 100%;
   height: 100%;
   background: #1d2333;
@@ -11,6 +13,7 @@
   display: flex;
   flex-direction: row;
   margin-left: 100px;
+  width: 100%;
 }
 
 .navbar-window-icon {
@@ -31,4 +34,15 @@
   height: 30px;
   display: block;
   margin: auto;
+}
+
+.navbar-general-data {
+  padding: 5px;
+}
+.navbar-datetime-container {
+  color: white;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  font-size: 14px;
 }

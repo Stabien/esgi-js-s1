@@ -1,0 +1,10 @@
+{
+  "datetime": {
+    "seconds": true,
+    "minutes": true,
+    "hours": true,
+    "day": true,
+    "month": true,
+    "year": true
+  }
+}

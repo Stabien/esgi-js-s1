@@ -30,5 +30,18 @@ export interface WindowData {
   iconPath: string
   isMaximized: boolean
   isHidden: boolean
-  isFocused?: boolean
+  isFocused: boolean
+}
+
+export interface DatetimeSettings {
+  seconds: boolean
+  minutes: boolean
+  hours: boolean
+  day: boolean
+  month: boolean
+  year: boolean
+}
+
+export interface SettingsData {
+  datetime: DatetimeSettings
 }

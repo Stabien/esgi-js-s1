@@ -30,10 +30,12 @@ const Icon = (label: string, imagePath: string, action: () => unknown): HTMLElem
         {
           tagName: 'img',
           src: imagePath,
+          onselectstart: 'return false',
         },
         {
           tagName: 'h2',
           text: label,
+          onselectstart: 'return false',
         },
       ],
     },
