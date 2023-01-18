@@ -1,4 +1,4 @@
-import Navbar from '../features/Navbar'
+import Navbar from '../features/navbar/Navbar'
 import Icon from '../components/Icon'
 import { renderTemplate } from '../helpers/render'
 import Window from '../components/Window'

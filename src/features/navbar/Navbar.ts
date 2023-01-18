@@ -1,10 +1,10 @@
-import { Template, WindowData } from '../types'
-import '../styles/navbar.css'
-import { renderTemplate } from '../helpers/render'
-import state from '../store/state'
-import { displayWindow, setDisplayWindow } from '../helpers/window'
-import { getIsWindowFocused, getTime, getDate } from '../store/getters'
-import { setIsWindowFocused } from '../store/actions'
+import { Template, WindowData } from '../../types'
+import '../../styles/navbar.css'
+import { renderTemplate } from '../../helpers/render'
+import state from '../../store/state'
+import { displayWindow, setDisplayWindow } from '../../helpers/window'
+import { getIsWindowFocused, getTime, getDate } from '../../store/getters'
+import { setIsWindowFocused } from '../../store/actions'
 
 const onIconClick = (windowUUID: string): void => {
   const isFocused = getIsWindowFocused(windowUUID)
@@ -84,10 +84,12 @@ const Navbar = (): HTMLElement => {
                 {
                   tagName: 'span',
                   class: 'navbar-time',
+                  text: getTime(),
                 },
                 {
                   tagName: 'span',
                   class: 'navbar-date',
+                  text: getDate(),
                 },
               ],
             },
@@ -112,9 +114,7 @@ const Navbar = (): HTMLElement => {
     setWindowsIcon(windows, htmlParent)
   })
 
-  htmlTime.innerHTML = getTime()
-  htmlDate.innerHTML = getDate()
-
+  // Refresh date every seconds
   setInterval(() => {
     htmlTime.innerHTML = getTime()
     htmlDate.innerHTML = getDate()

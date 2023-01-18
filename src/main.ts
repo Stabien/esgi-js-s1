@@ -1,4 +1,5 @@
 import Layout from './layouts'
+import { getNetworkLatency } from './services'
 import { initializeSettings } from './store/actions'
 import './styles/index.css'
 
@@ -12,3 +13,7 @@ const app = async (): Promise<void> => {
 }
 
 app().catch((e) => console.log(e))
+
+getNetworkLatency()
+  .then((latency) => console.log(latency))
+  .catch((e) => console.log(e))
