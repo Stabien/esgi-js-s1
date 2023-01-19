@@ -38,11 +38,53 @@
 
 .navbar-general-data {
   padding: 5px;
-}
-.navbar-datetime-container {
+  display: flex;
+  flex-direction: row;
+
   color: white;
+}
+
+.navbar-general-data div {
+  margin: auto 10px;
+}
+
+.navbar-datetime-container {
   display: flex;
   flex-direction: column;
   text-align: center;
   font-size: 14px;
+}
+
+.navbar-network {
+  font-size: 12px;
+}
+
+.navbar-network-icon {
+  display: block;
+  width: 22px;
+  height: 22px;
+  margin: 0 auto;
+}
+
+.navbar-battery {
+  text-align: center;
+  font-size: 12px;
+  height: fit-content;
+}
+
+.navbar-battery-progress-bar-container {
+  border: 2px solid white;
+  padding: 2px;
+  border-radius: 5px;
+  width: 40px;
+  height: 10px;
+}
+
+.navbar-battery-progress-bar-container div {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: green;
+  border-radius: 1px;
+  margin: auto auto auto 0;
 }
