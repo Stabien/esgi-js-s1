@@ -17,6 +17,7 @@
   box-sizing: border-box;
   border: 2px solid transparent;
   margin-bottom: 30px;
+  user-select: none;
 }
 
 .icon-container h2 {

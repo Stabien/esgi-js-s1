@@ -1,6 +1,6 @@
 import { renderTemplate } from '../helpers/render'
 import { removeWindow, resizeWindow, setDisplayWindow } from '../helpers/window'
-import { Template, WindowData } from '../types'
+import { Template, WindowData, WindowSize } from '../types'
 import '../styles/window.css'
 import { setIsWindowFocused, setWindows } from '../store/actions'
 import state from '../store/state'
@@ -10,7 +10,7 @@ import { generateUUID } from '../utils'
 /**
  * Render window
  */
-const Window = (label: string, iconPath: string): HTMLElement => {
+const Window = (label: string, iconPath: string, size: WindowSize): HTMLElement => {
   const uuid = generateUUID()
   const template: Template[] = [
     {
@@ -50,7 +50,7 @@ const Window = (label: string, iconPath: string): HTMLElement => {
                 {
                   tagName: 'button',
                   class: 'window-button-resize',
-                  click: () => resizeWindow(uuid),
+                  click: () => resizeWindow(uuid, size),
                   children: [
                     {
                       tagName: 'img',
@@ -83,11 +83,13 @@ const Window = (label: string, iconPath: string): HTMLElement => {
             },
           ],
         },
+        { tagName: 'div', class: 'window-content' },
       ],
     },
   ]
 
   const htmlElement = renderTemplate(template) as HTMLElement
+  const htmlWindowContent = htmlElement.getElementsByClassName('window-content')[0] as HTMLElement
   const isMaximized = getIsWindowMaximized(uuid)
   const isHidden = getIsWindowHidden(uuid)
 
@@ -99,6 +101,9 @@ const Window = (label: string, iconPath: string): HTMLElement => {
     isHidden,
     isFocused: true,
   }
+
+  htmlElement.style.width = `${size.width}px`
+  htmlWindowContent.style.height = `${size.height}px`
 
   document.addEventListener('onStateChange', () => {
     windows = state.windows

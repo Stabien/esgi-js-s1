@@ -45,3 +45,18 @@ export interface DatetimeSettings {
 export interface SettingsData {
   datetime: DatetimeSettings
 }
+
+export interface WindowSize {
+  width: number
+  height: number
+}
+
+export type TictactoeSymbols = 'x' | 'o'
+export type TicTacToeGameOverStatus = false | 'x' | 'o' | '='
+
+export interface TictactoeData {
+  hasGameStarded: boolean
+  isPlayerOneTurn: boolean
+  board: string[]
+  isGameOver: TicTacToeGameOverStatus
+}

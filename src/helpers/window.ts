@@ -6,23 +6,28 @@ import {
 } from '../store/actions'
 import { getElementByUUID, getIsWindowHidden, getIsWindowMaximized } from '../store/getters'
 import state from '../store/state'
-import { WindowData } from '../types'
+import { WindowData, WindowSize } from '../types'
 
-export const resizeWindow = (windowUUID: string): void => {
+export const resizeWindow = (windowUUID: string, size: WindowSize): void => {
   const htmlWindow = getElementByUUID(windowUUID)
+  const htmlWindowHeader = htmlWindow.getElementsByClassName('window-header')[0] as HTMLElement
+  const htmlWindowContent = htmlWindow.getElementsByClassName('window-content')[0] as HTMLElement
   const maximizeIcon = htmlWindow.getElementsByClassName('window-icon-maximize')[0] as HTMLElement
   const minimizeIcon = htmlWindow.getElementsByClassName('window-icon-minimize')[0] as HTMLElement
 
   const isMaximized = getIsWindowMaximized(windowUUID)
+  const headerHeight = htmlWindowHeader.offsetHeight
 
   if (isMaximized) {
-    htmlWindow.style.width = '400px'
-    htmlWindow.style.height = '400px'
+    htmlWindow.style.width = `${size.width}px`
+    htmlWindow.style.height = 'auto'
+    htmlWindowContent.style.height = `${size.height}px`
     maximizeIcon.style.display = 'block'
     minimizeIcon.style.display = 'none'
   } else {
     htmlWindow.style.width = '100%'
     htmlWindow.style.height = '100%'
+    htmlWindowContent.style.height = `calc(100% - ${headerHeight}px)`
     maximizeIcon.style.display = 'none'
     minimizeIcon.style.display = 'block'
   }
