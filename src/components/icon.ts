@@ -20,26 +20,24 @@ const Icon = (label: string, imagePath: string, action: () => unknown): HTMLElem
 
   const uuid = generateUUID()
 
-  const template: Template[] = [
-    {
-      tagName: 'div',
-      class: 'icon-container',
-      'data-uuid': uuid,
-      dblclick: dblclickContainer,
-      children: [
-        {
-          tagName: 'img',
-          src: imagePath,
-          onselectstart: 'return false',
-        },
-        {
-          tagName: 'h2',
-          text: label,
-          onselectstart: 'return false',
-        },
-      ],
-    },
-  ]
+  const template: Template = {
+    tagName: 'div',
+    class: 'icon-container',
+    'data-uuid': uuid,
+    dblclick: dblclickContainer,
+    children: [
+      {
+        tagName: 'img',
+        src: imagePath,
+        onselectstart: 'return false',
+      },
+      {
+        tagName: 'h2',
+        text: label,
+        onselectstart: 'return false',
+      },
+    ],
+  }
 
   const htmlElement = renderTemplate(template) as HTMLElement
 

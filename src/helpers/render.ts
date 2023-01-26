@@ -30,13 +30,13 @@ const addProperties = (htmlElement: HTMLElement, properties: Template): void => 
  * Otherwise, returns HTMLElement.
  */
 const callRender = (
-  template: Template[],
+  template: Template[] | Template,
   parent: HTMLElement | null = null,
   fragment: DocumentFragment | null = null,
   index = 0,
 ): HTMLElement | DocumentFragment => {
   const templateLength = template.length
-  const templateElement: Template = template[index]
+  const templateElement: Template = Array.isArray(template) ? template[index] : template
 
   const htmlElement: HTMLElement = document.createElement(templateElement.tagName as string)
 
@@ -59,7 +59,6 @@ const callRender = (
     htmlElement.appendChild(text)
   }
 
-  // Conditions
   if (hasChildren(templateElement)) {
     callRender(templateElement.children as Template[], htmlElement, fragment)
   }
@@ -78,8 +77,8 @@ const callRender = (
 /**
  * This function is mean to protect the callRender function by
  * forcing the user to pass only one argument and not allowing
- * parent or index to be passed into the function
+ * parent, fragment or index to be passed into the function
  */
-export const renderTemplate = (template: Template[]): HTMLElement | DocumentFragment => {
+export const renderTemplate = (template: Template[] | Template): HTMLElement | DocumentFragment => {
   return callRender(template)
 }

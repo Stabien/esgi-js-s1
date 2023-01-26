@@ -5,29 +5,25 @@ import { Template } from '../types'
 import Tictactoe from '../features/tictactoe/Tictactoe'
 
 const Layout = (): HTMLElement => {
-  const template: Template[] = [
-    {
-      tagName: 'main',
-      children: [
-        {
+  const template: Template = {
+    tagName: 'main',
+    children: [
+      {
+        tagName: 'div',
+        class: 'main-content',
+        children: {
           tagName: 'div',
-          class: 'main-content',
-          children: [
-            {
-              tagName: 'div',
-              class: 'icon-list',
-            },
-          ],
+          class: 'icon-list',
         },
-        {
-          tagName: 'img',
-          class: 'background',
-          src: '/background.jpg',
-          alt: 'background',
-        },
-      ],
-    },
-  ]
+      },
+      {
+        tagName: 'img',
+        class: 'background',
+        src: '/background.jpg',
+        alt: 'background',
+      },
+    ],
+  }
 
   const htmlElement = renderTemplate(template) as HTMLElement
   const iconList = htmlElement.getElementsByClassName('icon-list')[0]

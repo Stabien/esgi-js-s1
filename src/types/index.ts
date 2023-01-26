@@ -22,7 +22,6 @@ export interface AnyObject {
   [key: string]: any
 }
 
-export type State = AnyObject
 export type Reactive = AnyObject | any[]
 
 export interface WindowData {
@@ -52,11 +51,13 @@ export interface WindowSize {
 }
 
 export type TictactoeSymbols = 'x' | 'o'
-export type TicTacToeGameOverStatus = false | 'x' | 'o' | '='
+export type TictactoeGameOverStatus = false | 'x' | 'o' | '='
 
 export interface TictactoeData {
   hasGameStarded: boolean
   isPlayerOneTurn: boolean
   board: string[]
-  isGameOver: TicTacToeGameOverStatus
+  isGameOver: boolean
+  isPlayerOneBeginning: boolean
+  currentScore: [number, number]
 }

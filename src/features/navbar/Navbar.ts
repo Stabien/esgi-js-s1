@@ -24,19 +24,15 @@ const onIconClick = (windowUUID: string): void => {
  * @param iconPath - Path of the window icon
  */
 const createHtmlWindowIcon = (window: WindowData): HTMLElement => {
-  const windowIconTemplate: Template[] = [
-    {
-      tagName: 'div',
-      class: 'navbar-window-icon',
-      click: () => onIconClick(window.uuid),
-      children: [
-        {
-          tagName: 'img',
-          src: window.iconPath,
-        },
-      ],
+  const windowIconTemplate: Template = {
+    tagName: 'div',
+    class: 'navbar-window-icon',
+    click: () => onIconClick(window.uuid),
+    children: {
+      tagName: 'img',
+      src: window.iconPath,
     },
-  ]
+  }
 
   const htmlElement = renderTemplate(windowIconTemplate) as HTMLElement
 
@@ -65,76 +61,72 @@ const setWindowsIcon = (windows: WindowData[], parent: HTMLElement): void => {
 }
 
 const Navbar = (): HTMLElement => {
-  const template: Template[] = [
-    {
-      tagName: 'nav',
-      class: 'navbar-container',
-      children: [
-        {
-          tagName: 'div',
-          class: 'navbar-windows-icon-container',
-        },
-        {
-          tagName: 'div',
-          class: 'navbar-general-data',
-          children: [
-            {
-              tagName: 'div',
-              class: 'navbar-battery',
-              children: [
-                {
+  const template: Template = {
+    tagName: 'nav',
+    class: 'navbar-container',
+    children: [
+      {
+        tagName: 'div',
+        class: 'navbar-windows-icon-container',
+      },
+      {
+        tagName: 'div',
+        class: 'navbar-general-data',
+        children: [
+          {
+            tagName: 'div',
+            class: 'navbar-battery',
+            children: [
+              {
+                tagName: 'div',
+                class: 'navbar-battery-progress-bar-container',
+                children: {
                   tagName: 'div',
-                  class: 'navbar-battery-progress-bar-container',
-                  children: [
-                    {
-                      tagName: 'div',
-                      class: 'navbar-battery-progress-bar',
-                    },
-                  ],
+                  class: 'navbar-battery-progress-bar',
                 },
-                {
-                  tagName: 'div',
-                  class: 'navbar-battery-text',
-                },
-              ],
-            },
-            {
-              tagName: 'div',
-              class: 'navbar-network',
-              children: [
-                {
-                  tagName: 'img',
-                  class: 'navbar-network-icon',
-                  src: '/icon_network.png',
-                  alt: 'network-icon',
-                },
-                {
-                  tagName: 'span',
-                  class: 'navbar-network-latency',
-                },
-              ],
-            },
-            {
-              tagName: 'div',
-              class: 'navbar-datetime-container',
-              children: [
-                {
-                  tagName: 'span',
-                  class: 'navbar-time',
-                  text: getTime(),
-                },
-                {
-                  tagName: 'span',
-                  class: 'navbar-date',
-                  text: getDate(),
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ]
+              },
+              {
+                tagName: 'div',
+                class: 'navbar-battery-text',
+              },
+            ],
+          },
+          {
+            tagName: 'div',
+            class: 'navbar-network',
+            children: [
+              {
+                tagName: 'img',
+                class: 'navbar-network-icon',
+                src: '/icon_network.png',
+                alt: 'network-icon',
+              },
+              {
+                tagName: 'span',
+                class: 'navbar-network-latency',
+              },
+            ],
+          },
+          {
+            tagName: 'div',
+            class: 'navbar-datetime-container',
+            children: [
+              {
+                tagName: 'span',
+                class: 'navbar-time',
+                text: getTime(),
+              },
+              {
+                tagName: 'span',
+                class: 'navbar-date',
+                text: getDate(),
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  }
 
   const htmlElement = renderTemplate(template) as HTMLElement
   const htmlTime = htmlElement.getElementsByClassName('navbar-time')[0]

@@ -1,9 +1,48 @@
 import Window from '../../components/Window'
 import { renderTemplate } from '../../helpers/render'
-import { Template, TictactoeData, TicTacToeGameOverStatus, TictactoeSymbols } from '../../types'
+import { Template, TictactoeData, TictactoeGameOverState, TictactoeSymbols } from '../../types'
 import '../../styles/tictactoe.css'
 
-const checkIfGameIsOver = (board: string[]): TicTacToeGameOverStatus => {
+const resetGrid = (data: TictactoeData, htmlContainer: HTMLElement): void => {
+  const htmlGridBoxes = htmlContainer.getElementsByClassName('tictactoe-grid-box') as HTMLCollection
+  const htmlHeader = htmlContainer.getElementsByClassName('tictactoe-header')[0]
+  const htmlPlayerBeginning = htmlHeader.getElementsByTagName('span')[1]
+
+  for (let i = 0; i < htmlGridBoxes.length; i++) {
+    htmlGridBoxes[i].innerHTML = ''
+  }
+
+  if (data.isGameOver) {
+    htmlPlayerBeginning.innerHTML = `Joueur ${data.isPlayerOneBeginning ? '1' : '2'} commence`
+  }
+
+  data.isPlayerOneTurn = data.isPlayerOneBeginning
+  data.board = data.board.fill('')
+  data.isGameOver = false
+  data.hasGameStarded = true
+}
+
+const handleGameOver = (
+  data: TictactoeData,
+  gameOverState: TictactoeGameOverState,
+  htmlContainer: HTMLElement,
+): void => {
+  const htmlHeader = htmlContainer.getElementsByClassName('tictactoe-header')[0]
+  const htmlScore = htmlHeader.getElementsByTagName('span')[0]
+
+  data.isPlayerOneBeginning = !data.isPlayerOneBeginning
+  data.isGameOver = true
+
+  if (gameOverState === 'x') {
+    data.currentScore[0] += 1
+  } else if (gameOverState === 'o') {
+    data.currentScore[1] += 1
+  }
+
+  htmlScore.innerHTML = `J1: ${data.currentScore[0]} - J2: ${data.currentScore[1]}`
+}
+
+const checkIfGameIsOver = (board: string[]): TictactoeGameOverState => {
   for (let i = 0; i < 3; i++) {
     if (board[i] !== '') {
       if (board[i] === board[i + 3] && board[i + 3] === board[i + 6]) {
@@ -39,34 +78,34 @@ const checkIfGameIsOver = (board: string[]): TicTacToeGameOverStatus => {
 
 const onBoxClick = (e: Event, data: TictactoeData): void => {
   const htmlBox = e.currentTarget as HTMLElement
+  const htmlContainer = htmlBox.closest('.tictactoe-container') as HTMLElement
   const index = parseInt(htmlBox.getAttribute('data-index') as string)
 
-  console.log(!htmlBox.hasChildNodes(), !data.isGameOver)
-  if (!htmlBox.hasChildNodes() && !data.isGameOver) {
-    console.log('test')
-    const shape = data.isPlayerOneTurn ? 'cross' : 'circle'
-    const symbol = data.isPlayerOneTurn ? 'x' : 'o'
-
-    const imgTemplate: Template[] = [
-      {
+  if (!data.isGameOver) {
+    if (!htmlBox.hasChildNodes()) {
+      const shape = data.isPlayerOneTurn ? 'cross' : 'circle'
+      const symbol = data.isPlayerOneTurn ? 'x' : 'o'
+      const imgTemplate: Template = {
         tagName: 'img',
         src: `/tictactoe_${shape}_icon.png`,
         alt: `${shape}`,
         class: `${shape}`,
-      },
-    ]
+      }
 
-    const htmlImg = renderTemplate(imgTemplate)
+      const htmlImg = renderTemplate(imgTemplate)
 
-    data.isPlayerOneTurn = !data.isPlayerOneTurn
-    data.board[index] = symbol
+      data.isPlayerOneTurn = !data.isPlayerOneTurn
+      data.board[index] = symbol
 
-    htmlBox.append(htmlImg)
+      htmlBox.append(htmlImg)
+    }
+
+    const gameOverState = checkIfGameIsOver(data.board)
+
+    if (gameOverState !== false) {
+      handleGameOver(data, gameOverState, htmlContainer)
+    }
   }
-
-  const gameOverState = checkIfGameIsOver(data.board)
-
-  data.isGameOver = gameOverState !== false
 }
 
 const renderGridTemplate = (data: TictactoeData): Template[] => {
@@ -91,31 +130,50 @@ const Tictactoe = (): HTMLElement => {
     isPlayerOneTurn: true,
     board: ['', '', '', '', '', '', '', '', ''],
     isGameOver: false,
+    isPlayerOneBeginning: true,
+    currentScore: [0, 0],
   }
 
-  const htmlWindow = Window('Tictactoe', '/icon_calculator.png', { width: 600, height: 600 })
+  const htmlWindow = Window('Tic Tac Toe', '/icon_calculator.png', { width: 600, height: 600 })
   const gridTemplate = renderGridTemplate(data)
 
-  const template: Template[] = [
-    {
-      tagName: 'div',
-      class: 'tictactoe-container',
-      children: [
-        {
-          tagName: 'div',
-          class: 'tictactoe-grid',
-          children: gridTemplate,
-        },
-        {
-          tagName: 'button',
-          class: 'tictactoe-start-button',
-          text: 'Lancer une partie',
-        },
-      ],
-    },
-  ]
+  const template: Template = {
+    tagName: 'div',
+    class: 'tictactoe-container',
+    children: [
+      {
+        tagName: 'div',
+        class: 'tictactoe-header',
+        children: [
+          {
+            tagName: 'h2',
+            text: 'Score',
+          },
+          {
+            tagName: 'span',
+            text: 'J1 : 0 - J2 : 0',
+          },
+          {
+            tagName: 'span',
+            text: 'Joueur 1 commence',
+          },
+        ],
+      },
+      {
+        tagName: 'div',
+        class: 'tictactoe-grid',
+        children: gridTemplate,
+      },
+      {
+        tagName: 'button',
+        class: 'tictactoe-start-button',
+        text: 'Recommencer une partie',
+        click: () => resetGrid(data, htmlElement),
+      },
+    ],
+  }
 
-  const htmlElement = renderTemplate(template)
+  const htmlElement = renderTemplate(template) as HTMLElement
   const parent = htmlWindow.getElementsByClassName('window-content')[0]
 
   parent.appendChild(htmlElement)
