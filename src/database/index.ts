@@ -1,17 +1,25 @@
-let db
-const connection = window.indexedDB.open('NavigOS', 1)
+import { setTictactoeScores } from '../store/actions'
 
-connection.onerror = () => {
-  throw new Error('IndexedDB connection failed')
-}
+const initDB = (): void => {
+  const connection = indexedDB.open('NavigOS', 5)
 
-connection.onsuccess = (event: Event) => {
-  db = (event.target as IDBRequest).result as IDBDatabase
-  db.onerror = (event: Event) => {
-    throw new Error(`Database error: ${(event.target as unknown as DOMException).message}`)
+  connection.onerror = () => {
+    throw new Error('IndexedDB connection failed')
   }
 
-  const tictactoeObject = db.createObjectStore('tictactoe', { keyPath: 'score' })
+  connection.onupgradeneeded = (event: Event) => {
+    const db = (event.target as IDBRequest).result as IDBDatabase
+
+    db.onerror = (event: Event) => {
+      throw new Error(`Database error: ${(event.target as unknown as DOMException).message}`)
+    }
+
+    db.createObjectStore('tictactoe', { keyPath: 'score' })
+  }
+
+  connection.onsuccess = () => {
+    setTictactoeScores()
+  }
 }
 
-export default db
+export default initDB

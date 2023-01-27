@@ -50,6 +50,28 @@ export const initializeSettings = async (): Promise<void> => {
   const settings = await querySettingsData()
 
   state.settings = settings
+}
 
-  console.log(state)
+export const setTictactoeScores = (): void => {
+  const connection = indexedDB.open('NavigOS', 5)
+
+  connection.onerror = () => {
+    throw new Error('IndexedDB connection failed')
+  }
+
+  connection.onsuccess = (event) => {
+    const db = (event.target as IDBRequest).result as IDBDatabase
+    const transaction = db.transaction(['tictactoe'])
+    const objectStore = transaction.objectStore('tictactoe')
+    const request = objectStore.getAll() as IDBRequest
+
+    request.onsuccess = (): any => {
+      state.tictactoeScores = request.result
+      console.log(state)
+    }
+
+    request.onerror = () => {
+      throw new Error(request.error.message)
+    }
+  }
 }

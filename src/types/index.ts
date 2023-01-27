@@ -51,7 +51,7 @@ export interface WindowSize {
 }
 
 export type TictactoeSymbols = 'x' | 'o'
-export type TictactoeGameOverStatus = false | 'x' | 'o' | '='
+export type TictactoeGameOverState = false | 'x' | 'o' | '='
 
 export interface TictactoeData {
   hasGameStarded: boolean
