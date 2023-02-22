@@ -46,25 +46,6 @@ const Window = (label: string, iconPath: string, size: WindowSize): HTMLElement 
               },
               {
                 tagName: 'button',
-                class: 'window-button-resize',
-                click: () => resizeWindow(uuid, size),
-                children: [
-                  {
-                    tagName: 'img',
-                    class: 'window-icon-maximize',
-                    src: '/icon_maximize.png',
-                    alt: 'icon-maximize',
-                  },
-                  {
-                    tagName: 'img',
-                    class: 'window-icon-minimize',
-                    src: '/icon_minimize.png',
-                    alt: 'icon-minimize',
-                  },
-                ],
-              },
-              {
-                tagName: 'button',
                 class: 'window-button-close',
                 click: () => removeWindow(windows, uuid),
                 children: {

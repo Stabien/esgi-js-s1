@@ -71,7 +71,7 @@ export const setTictactoeScores = (): void => {
     }
 
     request.onerror = () => {
-      throw new Error(request.error.message)
+      throw new Error((request.error as DOMException).message)
     }
   }
 }

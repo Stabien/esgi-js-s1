@@ -31,13 +31,11 @@ const Layout = (): HTMLElement => {
 
   const navbar = Navbar()
 
-  for (let i = 0; i < 10; i++) {
-    iconList.appendChild(
-      Icon('Calculatrice', '/icon_calculator.png', () => {
-        mainContent.appendChild(Tictactoe())
-      }),
-    )
-  }
+  iconList.appendChild(
+    Icon('TicTacToe', '/icon_tictactoe.png', () => {
+      mainContent.appendChild(Tictactoe())
+    }),
+  )
 
   htmlElement.append(navbar)
 
