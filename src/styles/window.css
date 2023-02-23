@@ -74,4 +74,6 @@
 
 .window-content {
   display: block;
+  background-color: #1d2333;
+  color: white;
 }

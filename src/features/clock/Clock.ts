@@ -76,7 +76,7 @@ const Clock = (): HTMLElement => {
         children: {
           tagName: 'span',
           class: 'clock-time',
-          text: `Heure locale: ${getTime()}`,
+          text: getTime(),
         },
       },
       {
@@ -115,13 +115,18 @@ const Clock = (): HTMLElement => {
             children: [
               {
                 tagName: 'button',
-                class: 'clock-timer-start-reset',
+                class: 'clock-timer-start',
                 text: 'Commencer',
               },
               {
                 tagName: 'button',
                 class: 'clock-timer-stop',
                 text: 'Stop',
+              },
+              {
+                tagName: 'button',
+                class: 'clock-timer-reset',
+                text: 'Réinitialiser',
               },
             ],
           },
@@ -135,8 +140,9 @@ const Clock = (): HTMLElement => {
   const htmlTime = htmlElement.getElementsByClassName('clock-time')[0] as HTMLElement
   const htmlTimer = htmlElement.getElementsByClassName('clock-timer')[0] as HTMLElement
   const parent = htmlWindow.getElementsByClassName('window-content')[0]
-  const startButton = htmlElement.getElementsByClassName('clock-timer-start-reset')[0]
-  const stopButton = htmlElement.getElementsByClassName('clock-timer-stop')[0]
+  const startButton = htmlElement.getElementsByClassName('clock-timer-start')[0] as HTMLElement
+  const stopButton = htmlElement.getElementsByClassName('clock-timer-stop')[0] as HTMLElement
+  const resetButton = htmlElement.getElementsByClassName('clock-timer-reset')[0] as HTMLElement
 
   const timeData = {
     hour: 0,
@@ -149,6 +155,9 @@ const Clock = (): HTMLElement => {
 
   startButton.addEventListener('click', () => {
     intervalId = startTimer(timeData, htmlTimer, intervalId)
+    stopButton.style.display = 'inline-block'
+    startButton.style.display = 'none'
+    startButton.innerHTML = 'Reprendre'
   })
 
   stopButton.addEventListener('click', () => {
@@ -156,12 +165,40 @@ const Clock = (): HTMLElement => {
       clearInterval(intervalId)
       intervalId = null
     }
+    stopButton.style.display = 'none'
+    startButton.style.display = 'inline-block'
+  })
+
+  resetButton.addEventListener('click', () => {
+    const htmlHours = htmlElement.getElementsByClassName('clock-timer-hours')[0]
+    const htmlMinutes = htmlElement.getElementsByClassName('clock-timer-minutes')[0]
+    const htmlSeconds = htmlElement.getElementsByClassName('clock-timer-seconds')[0]
+    const htmlMilliseconds = htmlElement.getElementsByClassName('clock-timer-milliseconds')[0]
+
+    if (intervalId !== null) {
+      clearInterval(intervalId)
+      intervalId = null
+    }
+
+    stopButton.style.display = 'none'
+    startButton.style.display = 'inline-block'
+    startButton.innerHTML = 'Commencer'
+
+    timeData.hour = 0
+    timeData.minute = 0
+    timeData.second = 0
+    timeData.millisecond = 0
+
+    htmlHours.innerHTML = '00 :'
+    htmlMinutes.innerHTML = ' 00 :'
+    htmlSeconds.innerHTML = ' 00 :'
+    htmlMilliseconds.innerHTML = ' 00'
   })
 
   parent.appendChild(htmlElement)
 
   setInterval(() => {
-    htmlTime.innerHTML = `Heure locale: ${getTime()}`
+    htmlTime.innerHTML = getTime()
   }, 1000)
 
   return htmlWindow
