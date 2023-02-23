@@ -1,0 +1,12 @@
+.clock-time {
+  display: block;
+  text-align: center;
+}
+
+.clock-timer-container {
+  display: block;
+  width: fit-content;
+  margin: auto;
+  margin-top: 150px;
+  font-size: 72px;
+}

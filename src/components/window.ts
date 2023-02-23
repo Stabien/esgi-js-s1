@@ -1,5 +1,5 @@
 import { renderTemplate } from '../helpers/render'
-import { removeWindow, resizeWindow, setDisplayWindow } from '../helpers/window'
+import { removeWindow, setDisplayWindow } from '../helpers/window'
 import { Template, WindowData, WindowSize } from '../types'
 import '../styles/window.css'
 import { setIsWindowFocused, setWindows } from '../store/actions'

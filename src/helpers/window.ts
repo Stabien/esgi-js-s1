@@ -56,10 +56,12 @@ export const displayWindow = (elementUUID: string): void => {
   const { windows } = state
 
   for (const window of windows) {
-    const currentHtmlWindow = getElementByUUID(elementUUID)
+    const currentHtmlWindow = getElementByUUID(window.uuid)
     if (window.uuid === elementUUID) {
-      currentHtmlWindow.style.zIndex = '10'
+      htmlWindow.style.zIndex = '10'
+      console.log(elementUUID)
     } else {
+      console.log(currentHtmlWindow)
       currentHtmlWindow.style.zIndex = '0'
     }
   }

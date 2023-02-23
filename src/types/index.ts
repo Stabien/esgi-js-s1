@@ -61,3 +61,10 @@ export interface TictactoeData {
   isPlayerOneBeginning: boolean
   currentScore: [number, number]
 }
+
+export interface TimeData {
+  hour: number
+  minute: number
+  second: number
+  millisecond: number
+}

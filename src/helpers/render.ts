@@ -30,7 +30,7 @@ const addProperties = (htmlElement: HTMLElement, properties: Template): void => 
  * Otherwise, returns HTMLElement.
  */
 const callRender = (
-  template: Template[] | Template,
+  template: Template,
   parent: HTMLElement | null = null,
   fragment: DocumentFragment | null = null,
   index = 0,
@@ -46,7 +46,7 @@ const callRender = (
     parent.appendChild(htmlElement)
   }
 
-  // Initialize fragment if top level array has more than one element
+  // Initialize fragment if top level object has more than one element
   if (parent === null && templateLength > 1) {
     if (fragment === null) {
       fragment = new DocumentFragment()
@@ -60,7 +60,7 @@ const callRender = (
   }
 
   if (hasChildren(templateElement)) {
-    callRender(templateElement.children as Template[], htmlElement, fragment)
+    callRender(templateElement.children as Template, htmlElement, fragment)
   }
 
   if (index + 1 < templateLength) {
@@ -79,6 +79,6 @@ const callRender = (
  * forcing the user to pass only one argument and not allowing
  * parent, fragment or index to be passed into the function
  */
-export const renderTemplate = (template: Template[] | Template): HTMLElement | DocumentFragment => {
+export const renderTemplate = (template: Template): HTMLElement | DocumentFragment => {
   return callRender(template)
 }
