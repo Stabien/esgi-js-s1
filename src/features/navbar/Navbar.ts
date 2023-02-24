@@ -3,7 +3,7 @@ import '../../styles/navbar.css'
 import { renderTemplate } from '../../helpers/render'
 import state from '../../store/state'
 import { displayWindow, setDisplayWindow } from '../../helpers/window'
-import { getIsWindowFocused, getTime, getDate } from '../../store/getters'
+import { getIsWindowFocused, getNavbarTime, getNavbarDate, getSettings } from '../../store/getters'
 import { setIsWindowFocused } from '../../store/actions'
 import { getNetworkLatency } from '../../services'
 
@@ -114,12 +114,12 @@ const Navbar = (): HTMLElement => {
               {
                 tagName: 'span',
                 class: 'navbar-time',
-                text: getTime(),
+                text: getNavbarTime(),
               },
               {
                 tagName: 'span',
                 class: 'navbar-date',
-                text: getDate(),
+                text: getNavbarDate(),
               },
             ],
           },
@@ -129,17 +129,25 @@ const Navbar = (): HTMLElement => {
   }
 
   const htmlElement = renderTemplate(template) as HTMLElement
-  const htmlTime = htmlElement.getElementsByClassName('navbar-time')[0]
-  const htmlDate = htmlElement.getElementsByClassName('navbar-date')[0]
-  const htmlNetwork = htmlElement.getElementsByClassName('navbar-network-latency')[0]
-  const htmlBatteryProgressBar = htmlElement.getElementsByClassName(
+
+  const htmlTime = htmlElement.getElementsByClassName('navbar-time')[0] as HTMLElement
+  const htmlDate = htmlElement.getElementsByClassName('navbar-date')[0] as HTMLElement
+
+  const htmlNetwork = htmlElement.getElementsByClassName('navbar-network')[0] as HTMLElement
+  const htmlNetworkLatency = htmlElement.getElementsByClassName(
+    'navbar-network-latency',
+  )[0] as HTMLElement
+
+  const htmlBattery = htmlElement.getElementsByClassName('navbar-battery')[0] as HTMLElement
+  const htmlBatteryProgressBar = htmlBattery.getElementsByClassName(
     'navbar-battery-progress-bar',
   )[0] as HTMLElement
-  const htmlBatteryText = htmlElement.getElementsByClassName('navbar-battery-text')[0]
+  const htmlBatteryText = htmlBattery.getElementsByClassName('navbar-battery-text')[0]
 
   let windows: WindowData[] = state.windows
+  let settings = getSettings()
 
-  // Update windows icon on state change
+  // Update windows icon and settings on state change
   document.addEventListener('onStateChange', () => {
     const htmlParent = htmlElement.getElementsByClassName(
       'navbar-windows-icon-container',
@@ -147,27 +155,55 @@ const Navbar = (): HTMLElement => {
 
     windows = state.windows
     setWindowsIcon(windows, htmlParent)
+
+    settings = getSettings()
+
+    if (settings.batterySettings.hideBattery) {
+      htmlBattery.style.display = 'none'
+    } else {
+      htmlBattery.style.display = 'block'
+    }
+
+    if (settings.networkSettings.hideNetworkLatency) {
+      htmlNetwork.style.display = 'none'
+    } else {
+      htmlNetwork.style.display = 'block'
+    }
+
+    if (settings.dateSettings.hideDate) {
+      htmlDate.style.display = 'none'
+    } else {
+      htmlDate.style.display = 'block'
+    }
+
+    if (settings.dateSettings.hideTime) {
+      htmlTime.style.display = 'none'
+    } else {
+      htmlTime.style.display = 'block'
+    }
   })
 
   // Refresh date every seconds
   setInterval(() => {
-    htmlTime.innerHTML = getTime()
-    htmlDate.innerHTML = getDate()
+    htmlTime.innerHTML = getNavbarTime()
+    htmlDate.innerHTML = getNavbarDate()
   }, 1000)
 
   // Refresh network latency
   getNetworkLatency()
     .then((networkLatency) => {
-      htmlNetwork.innerHTML = `${networkLatency.toString()}ms`
+      if (!settings.networkSettings.hideNetworkLatency) {
+        htmlNetworkLatency.innerHTML = `${networkLatency.toString()}ms`
 
-      setInterval(async () => {
-        try {
-          const networkLatency = await getNetworkLatency()
-          htmlNetwork.innerHTML = `${networkLatency.toString()}ms`
-        } catch (e) {
-          throw new Error(e as string)
-        }
-      }, 5000)
+        setInterval(async () => {
+          try {
+            const networkLatency = await getNetworkLatency()
+            htmlNetworkLatency.innerHTML = `${networkLatency.toString()}ms`
+          } catch (e) {
+            throw new Error(e as string)
+          }
+        }, 5000)
+      }
     })
     .catch((e) => {
       throw new Error(e)
@@ -177,17 +213,19 @@ const Navbar = (): HTMLElement => {
   navigator // @ts-expect-errors Typescript does not recognize getBattery prototype on navigator object
     .getBattery() // @ts-expect-errors Typescript does not recognize BatteryManager on navigator object
     .then((battery: BatteryManager) => {
-      const batteryLevel = `${(battery.level * 100).toString()}%`
-
-      htmlBatteryText.innerHTML = batteryLevel
-      htmlBatteryProgressBar.style.width = batteryLevel
-
-      battery.addEventListener('levelchange', () => {
+      if (!settings.batterySettings.hideBattery) {
         const batteryLevel = `${(battery.level * 100).toString()}%`
 
         htmlBatteryText.innerHTML = batteryLevel
         htmlBatteryProgressBar.style.width = batteryLevel
-      })
+
+        battery.addEventListener('levelchange', () => {
+          const batteryLevel = `${(battery.level * 100).toString()}%`
+
+          htmlBatteryText.innerHTML = batteryLevel
+          htmlBatteryProgressBar.style.width = batteryLevel
+        })
+      }
     })
     .catch((e: string) => {
       throw new Error(e)

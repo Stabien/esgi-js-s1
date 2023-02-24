@@ -1,4 +1,5 @@
 import { querySettingsData } from '../services'
+import { Settings } from '../types'
 import state from './state'
 
 export const setWindows = (value: any[]): void => {
@@ -74,4 +75,8 @@ export const setTictactoeScores = (): void => {
       throw new Error((request.error as DOMException).message)
     }
   }
+}
+
+export const setSettings = (settings: Settings): void => {
+  state.settings = settings
 }

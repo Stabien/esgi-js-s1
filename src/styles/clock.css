@@ -44,3 +44,16 @@
 .clock-timer-reset {
   background: orange;
 }
+
+@media (max-width: 600px) {
+  .clock-time {
+    font-size: 30px;
+  }
+  .clock-timer-container {
+    font-size: 36px;
+  }
+
+  .clock-timer-buttons button {
+    font-size: 12px;
+  }
+}

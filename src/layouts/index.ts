@@ -4,6 +4,7 @@ import { renderTemplate } from '../helpers/render'
 import { Template } from '../types'
 import Tictactoe from '../features/tictactoe/Tictactoe'
 import Clock from '../features/Clock/Clock'
+import Settings from '../features/settings/Settings'
 
 const Layout = (): HTMLElement => {
   const template: Template = {
@@ -41,6 +42,12 @@ const Layout = (): HTMLElement => {
   iconList.appendChild(
     Icon('Horloge', '/icon_clock.png', () => {
       mainContent.appendChild(Clock())
+    }),
+  )
+
+  iconList.appendChild(
+    Icon('Paramètres', '/icon_settings.png', () => {
+      mainContent.appendChild(Settings())
     }),
   )
 

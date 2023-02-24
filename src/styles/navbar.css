@@ -12,8 +12,9 @@
 .navbar-windows-icon-container {
   display: flex;
   flex-direction: row;
-  margin-left: 100px;
+  margin-left: 20px;
   width: 100%;
+  overflow-y: hidden;
 }
 
 .navbar-window-icon {
@@ -87,4 +88,17 @@
   background: green;
   border-radius: 1px;
   margin: auto auto auto 0;
+}
+
+@media (max-width: 600px) {
+  .navbar-windows-icon-container {
+    display: none;
+  }
+
+  .navbar-general-data {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
 }

@@ -1,10 +1,22 @@
 {
-  "datetime": {
-    "seconds": true,
-    "minutes": true,
-    "hours": true,
-    "day": true,
-    "month": true,
-    "year": true
+  "dateSettings": {
+    "hideDate": false,
+    "hideTime": false,
+    "hideDays": false,
+    "hideMonths": false,
+    "hideYears": false,
+    "hideHours": false,
+    "hideMinutes": false,
+    "hideSeconds": false
+  },
+  "batterySettings": {
+    "hideBattery": false
+  },
+  "networkSettings": {
+    "hideNetworkLatency": false,
+    "pingRefreshTime": 5
+  },
+  "vibrationSettings": {
+    "hideVibration": false
   }
 }
