@@ -1,4 +1,4 @@
 // vite.config.js
 export default {
-  base: './esgi-js-s1',
+  base: '/esgi-js-s1',
 }
