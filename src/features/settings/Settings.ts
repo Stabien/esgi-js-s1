@@ -3,7 +3,6 @@ import '../../styles/navbar.css'
 import { renderTemplate } from '../../helpers/render'
 import Window from '../../components/Window'
 import '../../styles/settings.css'
-import state from '../../store/state'
 import { setSettings } from '../../store/actions'
 
 const updateSettings = (htmlSettings: HTMLElement): SettingsData => {
@@ -316,11 +315,6 @@ const Settings = (): HTMLElement => {
   saveButton.addEventListener('click', () => {
     settings = updateSettings(htmlElement)
     setSettings(settings)
-    console.log('update')
-  })
-
-  document.addEventListener('onStateChange', () => {
-    console.log(settings)
   })
 
   parent.appendChild(htmlElement)

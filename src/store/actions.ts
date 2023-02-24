@@ -1,5 +1,5 @@
 import { querySettingsData } from '../services'
-import { Settings } from '../types'
+import { SettingsData } from '../types'
 import state from './state'
 
 export const setWindows = (value: any[]): void => {
@@ -77,6 +77,6 @@ export const setTictactoeScores = (): void => {
   }
 }
 
-export const setSettings = (settings: Settings): void => {
+export const setSettings = (settings: SettingsData): void => {
   state.settings = settings
 }
