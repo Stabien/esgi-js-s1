@@ -1,10 +1,38 @@
 import { SettingsData } from '../types'
 
-export const querySettingsData = async (): Promise<SettingsData> => {
-  const response = await fetch('/src/features/settings/data.json')
-  const data = await response.json()
+const defaultSettings: SettingsData = {
+  dateSettings: {
+    hideDate: false,
+    hideTime: false,
+    hideDays: false,
+    hideMonths: false,
+    hideYears: false,
+    hideHours: false,
+    hideMinutes: false,
+    hideSeconds: false,
+  },
+  batterySettings: {
+    hideBattery: false,
+  },
+  networkSettings: {
+    hideNetworkLatency: false,
+    pingRefreshTime: 5,
+  },
+  vibrationSettings: {
+    hideVibration: false,
+  },
+}
 
-  return data
+export const querySettingsData = (): SettingsData => {
+  const settings = localStorage.getItem('settings')
+
+  if (settings === null) {
+    localStorage.setItem('settings', JSON.stringify(defaultSettings))
+
+    return JSON.parse(localStorage.getItem('settings') as string)
+  }
+
+  return JSON.parse(settings)
 }
 
 export const getNetworkLatency = async (): Promise<number> => {

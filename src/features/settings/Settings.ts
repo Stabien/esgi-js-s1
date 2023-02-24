@@ -4,6 +4,7 @@ import { renderTemplate } from '../../helpers/render'
 import Window from '../../components/Window'
 import '../../styles/settings.css'
 import { setSettings } from '../../store/actions'
+import { getSettings } from '../../store/getters'
 
 const updateSettings = (htmlSettings: HTMLElement): SettingsData => {
   const settings: SettingsData = {
@@ -305,12 +306,62 @@ const Settings = (): HTMLElement => {
     ],
   }
 
+  let settings = getSettings()
+
   const htmlWindow = Window('Paramètres', '/icon_settings.png', { width: 600, height: 600 })
   const htmlElement = renderTemplate(template) as HTMLElement
   const parent = htmlWindow.getElementsByClassName('window-content')[0]
+
   const saveButton = htmlElement.getElementsByClassName('settings-save-button')[0]
 
-  let settings = updateSettings(htmlElement)
+  const htmlDisplayDate = htmlElement.getElementsByClassName(
+    'settings-date-display',
+  )[0] as HTMLInputElement
+  const htmlDisplayTime = htmlElement.getElementsByClassName(
+    'settings-time-display',
+  )[0] as HTMLInputElement
+  const htmlDisplayDays = htmlElement.getElementsByClassName(
+    'settings-days-display',
+  )[0] as HTMLInputElement
+  const htmlDisplayMonths = htmlElement.getElementsByClassName(
+    'settings-months-display',
+  )[0] as HTMLInputElement
+  const htmlDisplayYears = htmlElement.getElementsByClassName(
+    'settings-years-display',
+  )[0] as HTMLInputElement
+  const htmlDisplayHours = htmlElement.getElementsByClassName(
+    'settings-hours-display',
+  )[0] as HTMLInputElement
+  const htmlDisplayMinutes = htmlElement.getElementsByClassName(
+    'settings-minutes-display',
+  )[0] as HTMLInputElement
+  const htmlDisplaySeconds = htmlElement.getElementsByClassName(
+    'settings-seconds-display',
+  )[0] as HTMLInputElement
+  const htmlDisplayBattery = htmlElement.getElementsByClassName(
+    'settings-battery-display',
+  )[0] as HTMLInputElement
+  const htmlDisplayNetwork = htmlElement.getElementsByClassName(
+    'settings-network-latency-display',
+  )[0] as HTMLInputElement
+  const htmlDisplayVibration = htmlElement.getElementsByClassName(
+    'settings-vibration-display',
+  )[0] as HTMLInputElement
+
+  htmlDisplayDate.checked = settings.dateSettings.hideDate
+  htmlDisplayTime.checked = settings.dateSettings.hideTime
+  htmlDisplayDays.checked = settings.dateSettings.hideDays
+  htmlDisplayMonths.checked = settings.dateSettings.hideMonths
+  htmlDisplayYears.checked = settings.dateSettings.hideYears
+  htmlDisplayHours.checked = settings.dateSettings.hideHours
+  htmlDisplayMinutes.checked = settings.dateSettings.hideMinutes
+  htmlDisplaySeconds.checked = settings.dateSettings.hideSeconds
+
+  htmlDisplayBattery.checked = settings.batterySettings.hideBattery
+
+  htmlDisplayNetwork.checked = settings.networkSettings.hideNetworkLatency
+
+  htmlDisplayVibration.checked = settings.vibrationSettings.hideVibration
 
   saveButton.addEventListener('click', () => {
     settings = updateSettings(htmlElement)

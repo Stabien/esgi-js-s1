@@ -79,4 +79,6 @@ export const setTictactoeScores = (): void => {
 
 export const setSettings = (settings: SettingsData): void => {
   state.settings = settings
+
+  localStorage.setItem('settings', JSON.stringify(settings))
 }
