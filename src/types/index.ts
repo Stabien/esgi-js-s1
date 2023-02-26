@@ -61,3 +61,11 @@ export interface TictactoeData {
   isPlayerOneBeginning: boolean
   currentScore: [number, number]
 }
+
+export interface CalculatorData {
+
+}
+
+// export type CalculatorState = 'un truc'
+
+export type CalculatorSymbol = '+' | '-' | '/' | '*'
