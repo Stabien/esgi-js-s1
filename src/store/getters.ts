@@ -1,4 +1,4 @@
-import { DatetimeSettings } from '../types'
+import { DateSettings, SettingsData } from '../types'
 import state from './state'
 
 export const getIsWindowMaximized = (windowUUID: string): boolean => {
@@ -40,60 +40,60 @@ export const getElementByUUID = (elementUUID: string): HTMLElement => {
   return htmlElement
 }
 
-export const getDate = (): string => {
+export const getNavbarDate = (): string => {
   const elementToDisplay = []
   const currentDatetime = new Date(Date.now())
-  const settings: DatetimeSettings = state.settings.datetime
+  const settings: DateSettings = state.settings.dateSettings
 
   let day = currentDatetime.getDate().toString()
   let month = (currentDatetime.getMonth() + 1).toString()
   const year = currentDatetime.getFullYear().toString()
 
-  if (settings.day) {
+  if (!settings.hideDays) {
     if (parseInt(day) < 10) {
       day = `0${day}`
     }
     elementToDisplay.push(day)
   }
 
-  if (settings.month) {
+  if (!settings.hideMonths) {
     if (parseInt(month) < 10) {
       month = `0${month}`
     }
     elementToDisplay.push(month)
   }
 
-  if (settings.year) {
+  if (!settings.hideYears) {
     elementToDisplay.push(year)
   }
 
   return elementToDisplay.join('/')
 }
 
-export const getTime = (): string => {
+export const getNavbarTime = (): string => {
   const elementToDisplay = []
   const currentDatetime = new Date(Date.now())
-  const settings: DatetimeSettings = state.settings.datetime
+  const settings: DateSettings = state.settings.dateSettings
 
   let seconds = currentDatetime.getSeconds().toString()
   let minutes = currentDatetime.getMinutes().toString()
   let hours = currentDatetime.getHours().toString()
 
-  if (settings.hours) {
+  if (!settings.hideHours) {
     if (parseInt(hours) < 10) {
       hours = `0${hours}`
     }
     elementToDisplay.push(hours)
   }
 
-  if (settings.minutes) {
+  if (!settings.hideMinutes) {
     if (parseInt(minutes) < 10) {
       minutes = `0${minutes}`
     }
     elementToDisplay.push(minutes)
   }
 
-  if (settings.seconds) {
+  if (!settings.hideSeconds) {
     if (parseInt(seconds) < 10) {
       seconds = `0${seconds}`
     }
@@ -101,4 +101,56 @@ export const getTime = (): string => {
   }
 
   return elementToDisplay.join(':')
+}
+
+export const getDate = (): string => {
+  const elementToDisplay = []
+  const currentDatetime = new Date(Date.now())
+
+  let day = currentDatetime.getDate().toString()
+  let month = (currentDatetime.getMonth() + 1).toString()
+  const year = currentDatetime.getFullYear().toString()
+
+  if (parseInt(day) < 10) {
+    day = `0${day}`
+  }
+  elementToDisplay.push(day)
+
+  if (parseInt(month) < 10) {
+    month = `0${month}`
+  }
+  elementToDisplay.push(month)
+
+  elementToDisplay.push(year)
+
+  return elementToDisplay.join('/')
+}
+
+export const getTime = (): string => {
+  const elementToDisplay = []
+  const currentDatetime = new Date(Date.now())
+
+  let seconds = currentDatetime.getSeconds().toString()
+  let minutes = currentDatetime.getMinutes().toString()
+  let hours = currentDatetime.getHours().toString()
+
+  if (parseInt(hours) < 10) {
+    hours = `0${hours}`
+  }
+  elementToDisplay.push(hours)
+  if (parseInt(minutes) < 10) {
+    minutes = `0${minutes}`
+  }
+  elementToDisplay.push(minutes)
+
+  if (parseInt(seconds) < 10) {
+    seconds = `0${seconds}`
+  }
+  elementToDisplay.push(seconds)
+
+  return elementToDisplay.join(':')
+}
+
+export const getSettings = (): SettingsData => {
+  return state.settings
 }

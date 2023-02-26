@@ -134,7 +134,7 @@ const Tictactoe = (): HTMLElement => {
     currentScore: [0, 0],
   }
 
-  const htmlWindow = Window('Tic Tac Toe', '/icon_calculator.png', { width: 600, height: 600 })
+  const htmlWindow = Window('Tic Tac Toe', '/icon_tictactoe.png', { width: 600, height: 600 })
   const gridTemplate = renderGridTemplate(data)
 
   const template: Template = {

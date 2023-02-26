@@ -1,4 +1,5 @@
 import { querySettingsData } from '../services'
+import { SettingsData } from '../types'
 import state from './state'
 
 export const setWindows = (value: any[]): void => {
@@ -74,4 +75,10 @@ export const setTictactoeScores = (): void => {
       throw new Error((request.error as DOMException).message)
     }
   }
+}
+
+export const setSettings = (settings: SettingsData): void => {
+  state.settings = settings
+
+  localStorage.setItem('settings', JSON.stringify(settings))
 }

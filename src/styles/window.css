@@ -74,4 +74,20 @@
 
 .window-content {
   display: block;
+  background-color: #1d2333;
+  color: white;
+}
+
+@media (max-width: 600px) {
+  .window-container {
+    width: 100% !important;
+  }
+
+  .window-content {
+    overflow-y: scroll;
+  }
+
+  .window-button-hide {
+    display: none;
+  }
 }

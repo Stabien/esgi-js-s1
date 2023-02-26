@@ -41,10 +41,6 @@ export interface DatetimeSettings {
   year: boolean
 }
 
-export interface SettingsData {
-  datetime: DatetimeSettings
-}
-
 export interface WindowSize {
   width: number
   height: number
@@ -69,3 +65,40 @@ export interface CalculatorData {
 // export type CalculatorState = 'un truc'
 
 export type CalculatorSymbol = '+' | '-' | '/' | '*'
+export interface TimeData {
+  hour: number
+  minute: number
+  second: number
+  millisecond: number
+}
+
+export interface DateSettings {
+  hideDate: boolean
+  hideTime: boolean
+  hideDays: boolean
+  hideMonths: boolean
+  hideYears: boolean
+  hideHours: boolean
+  hideMinutes: boolean
+  hideSeconds: boolean
+}
+
+export interface BatterySettings {
+  hideBattery: boolean
+}
+
+export interface NetworkSettings {
+  hideNetworkLatency: boolean
+  pingRefreshTime: number
+}
+
+export interface VibrationSettings {
+  hideVibration: boolean
+}
+
+export interface SettingsData {
+  dateSettings: DateSettings
+  batterySettings: BatterySettings
+  networkSettings: NetworkSettings
+  vibrationSettings: VibrationSettings
+}
