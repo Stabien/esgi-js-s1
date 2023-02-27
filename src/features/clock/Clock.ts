@@ -135,7 +135,7 @@ const Clock = (): HTMLElement => {
     ],
   }
 
-  const htmlWindow = Window('Horloge', '/icon_clock.png', { width: 600, height: 600 })
+  const htmlWindow = Window('Horloge', 'icon_clock.png', { width: 600, height: 600 })
   const htmlElement = renderTemplate(template) as HTMLElement
   const htmlTime = htmlElement.getElementsByClassName('clock-time')[0] as HTMLElement
   const htmlTimer = htmlElement.getElementsByClassName('clock-timer')[0] as HTMLElement
