@@ -214,13 +214,13 @@ const Navbar = (): HTMLElement => {
     .getBattery() // @ts-expect-errors Typescript does not recognize BatteryManager on navigator object
     .then((battery: BatteryManager) => {
       if (!settings.batterySettings.hideBattery) {
-        const batteryLevel = `${(battery.level * 100).toString()}%`
+        const batteryLevel = `${Math.round(battery.level * 100).toString()}%`
 
         htmlBatteryText.innerHTML = batteryLevel
         htmlBatteryProgressBar.style.width = batteryLevel
 
         battery.addEventListener('levelchange', () => {
-          const batteryLevel = `${(battery.level * 100).toString()}%`
+          const batteryLevel = `${Math.round(battery.level * 100).toString()}%`
 
           htmlBatteryText.innerHTML = batteryLevel
           htmlBatteryProgressBar.style.width = batteryLevel

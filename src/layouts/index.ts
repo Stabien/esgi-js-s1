@@ -3,7 +3,7 @@ import Icon from '../components/Icon'
 import { renderTemplate } from '../helpers/render'
 import { Template } from '../types'
 import Tictactoe from '../features/tictactoe/Tictactoe'
-import Clock from '../features/Clock/Clock'
+import Clock from '../features/clock/Clock'
 import Settings from '../features/settings/Settings'
 import Calculatrice from '../features/calc/Calculator'
 
