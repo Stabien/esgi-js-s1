@@ -1,7 +1,7 @@
 import { Template, SettingsData } from '../../types'
 import '../../styles/navbar.css'
 import { renderTemplate } from '../../helpers/render'
-import Window from '../../components/Window'
+import Window from '../../components/window'
 import '../../styles/settings.css'
 import { setSettings } from '../../store/actions'
 import { getSettings } from '../../store/getters'

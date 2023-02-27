@@ -2,7 +2,7 @@ import { Template, TimeData } from '../../types'
 import '../../styles/navbar.css'
 import { renderTemplate } from '../../helpers/render'
 import { getTime } from '../../store/getters'
-import Window from '../../components/Window'
+import Window from '../../components/window'
 import '../../styles/clock.css'
 
 const startTimer = (

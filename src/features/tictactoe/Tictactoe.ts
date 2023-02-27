@@ -1,4 +1,4 @@
-import Window from '../../components/Window'
+import Window from '../../components/window'
 import { renderTemplate } from '../../helpers/render'
 import { Template, TictactoeData, TictactoeGameOverState, TictactoeSymbols } from '../../types'
 import '../../styles/tictactoe.css'

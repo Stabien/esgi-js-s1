@@ -1,5 +1,5 @@
 import Navbar from '../features/navbar/Navbar'
-import Icon from '../components/Icon'
+import Icon from '../components/icon'
 import { renderTemplate } from '../helpers/render'
 import { Template } from '../types'
 import Tictactoe from '../features/tictactoe/Tictactoe'
@@ -55,7 +55,7 @@ const Layout = (): HTMLElement => {
   iconList.appendChild(
     Icon('Calculatrice', '/icon_calculator.png', () => {
       mainContent.appendChild(Calculatrice())
-    })
+    }),
   )
 
   htmlElement.append(navbar)
