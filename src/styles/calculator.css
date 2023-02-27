@@ -7,13 +7,16 @@
 .calculator-grid {
     display: flex;
     gap: 5px;
-    width: fit-content;
-    margin: auto; 
+    width: 50%;
+    margin: auto;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .calculator-components {
     max-width:70px; 
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .calculator-button {

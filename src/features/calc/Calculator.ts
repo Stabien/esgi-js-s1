@@ -19,34 +19,39 @@ const divide = (num1: number, num2: number): number => {
   return num1/num2;
 }
 
-const Calc = (e: Event, calc: CalculatorData, /* htmlContainer: HTMLElement,*/ htmlElement: Template[]): number|void => {
-  console.log(htmlElement);
-  const number1 = htmlElement[0].value;
-  const number2 = htmlElement[2].value;
-  const operator = htmlElement[1].value;
+const Calc = (htmlElement: HTMLElement): number|void => {
+
+  const htmlInputs = htmlElement.getElementsByClassName('calculator-components') as HTMLCollectionOf<HTMLInputElement>
+
+  console.log("htmlElement", htmlElement)
+
+  const number1 = parseInt(htmlInputs[0].value);
+  const number2 = parseInt(htmlInputs[2].value);
+  const operator = htmlInputs[1].value;
   
   switch (operator) {
     case "+":
-      return add(number1, number2);
+      return console.log(add(number1, number2));
     case "-":
-      return minus(number1, number2);
+      return console.log(minus(number1, number2));
     case "*":
-      return multiply(number1, number2);
+      return console.log(multiply(number1, number2));
     case "/":
-      return divide(number1, number2);
+      return console.log(divide(number1, number2));
     default: 
       return console.log("No valid operator given");
   }
 }
 
-const renderGridTemplate = (data: CalculatorData): Template[] => {
+const renderGridTemplate = (): Template[] => {
   const template: Template[] = []
 
   const number1: Template = {
     tagName: 'input',
     type: 'text',
     class: 'calculator-components',
-    placeholder: 'Nombre 1'
+    placeholder: 'Nombre 1',
+    'data-index': 1
   }
   template.push(number1)
 
@@ -54,7 +59,8 @@ const renderGridTemplate = (data: CalculatorData): Template[] => {
     tagName: 'input',
     type: 'text',
     class: 'calculator-components',
-    placeholder: '+, -, *, /'
+    placeholder: '+, -, *, /',
+    'data-index': 2
   }
   template.push(operator)
 
@@ -62,9 +68,17 @@ const renderGridTemplate = (data: CalculatorData): Template[] => {
     tagName: 'input',
     type: 'text',
     class: 'calculator-components',
-    placeholder: 'Nombre 2'
+    placeholder: 'Nombre 2',
+    'data-index': 3
   }
   template.push(number2)
+
+  const equalButton: Template = {
+    tagName: 'button',
+    class: 'calculator-button',
+    text: '=',
+  }
+  template.push(equalButton)
 
   return template
 }
@@ -77,7 +91,7 @@ const Calculator = (): HTMLElement => {
   }
 
   const htmlWindow = Window('Calculatrice', '/icon_calculator.png', { width: 600, height: 600 })
-  const gridTemplate = renderGridTemplate(data)
+  const gridTemplate = renderGridTemplate()
 
   const template: Template = {
     tagName: 'div',
@@ -100,16 +114,19 @@ const Calculator = (): HTMLElement => {
         children: gridTemplate,
       },
       {
-        tagName: 'button',
-        class: 'calculator-button',
-        text: '=',
-        click: (e) => Calc(e, data, template),
-      },
+        tagName: 'div',
+        class: 'calculator-result', 
+      }
     ],
+    
+
   }
 
   const htmlElement = renderTemplate(template) as HTMLElement
   const parent = htmlWindow.getElementsByClassName('window-content')[0]
+
+  const htmlButton = htmlElement.getElementsByClassName('calculator-button')[0]
+  htmlButton.addEventListener('click', () => Calc(htmlElement))
 
   parent.appendChild(htmlElement)
 
