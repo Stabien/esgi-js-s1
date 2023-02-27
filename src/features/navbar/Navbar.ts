@@ -209,27 +209,30 @@ const Navbar = (): HTMLElement => {
       throw new Error(e)
     })
 
-  // Get battery level and refresh on battery level change
-  navigator // @ts-expect-errors Typescript does not recognize getBattery prototype on navigator object
-    .getBattery() // @ts-expect-errors Typescript does not recognize BatteryManager on navigator object
-    .then((battery: BatteryManager) => {
-      if (!settings.batterySettings.hideBattery) {
-        const batteryLevel = `${Math.round(battery.level * 100).toString()}%`
-
-        htmlBatteryText.innerHTML = batteryLevel
-        htmlBatteryProgressBar.style.width = batteryLevel
-
-        battery.addEventListener('levelchange', () => {
+  // @ts-expect-errors Typescript does not recognize getBattery prototype on navigator object
+  if (navigator.getBattery()) {
+    // Get battery level and refresh on battery level change
+    navigator // @ts-expect-errors Typescript does not recognize getBattery prototype on navigator object
+      .getBattery() // @ts-expect-errors Typescript does not recognize BatteryManager on navigator object
+      .then((battery: BatteryManager) => {
+        if (!settings.batterySettings.hideBattery) {
           const batteryLevel = `${Math.round(battery.level * 100).toString()}%`
-
+  
           htmlBatteryText.innerHTML = batteryLevel
           htmlBatteryProgressBar.style.width = batteryLevel
-        })
-      }
-    })
-    .catch((e: string) => {
-      throw new Error(e)
-    })
+  
+          battery.addEventListener('levelchange', () => {
+            const batteryLevel = `${Math.round(battery.level * 100).toString()}%`
+  
+            htmlBatteryText.innerHTML = batteryLevel
+            htmlBatteryProgressBar.style.width = batteryLevel
+          })
+        }
+      })
+      .catch((e: string) => {
+        throw new Error(e)
+      })  
+  }
 
   return htmlElement
 }

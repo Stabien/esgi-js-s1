@@ -1,45 +1,46 @@
 import Window from '../../components/Window'
 import { renderTemplate } from '../../helpers/render'
-import { CalculatorData, Template } from '../../types'
+import { Template } from '../../types'
 import '../../styles/calculator.css'
 
 const add = (num1: number, num2: number): number => {
-  return num1+num2;
+  return num1 + num2
 }
 
 const minus = (num1: number, num2: number): number => {
-  return num1-num2;
+  return num1 - num2
 }
 
 const multiply = (num1: number, num2: number): number => {
-  return num1*num2;
+  return num1 * num2
 }
 
 const divide = (num1: number, num2: number): number => {
-  return num1/num2;
+  return num1 / num2
 }
 
-const Calc = (htmlElement: HTMLElement): number|void => {
+const Calc = (htmlElement: HTMLElement): number | void => {
+  const htmlInputs = htmlElement.getElementsByClassName(
+    'calculator-components',
+  ) as HTMLCollectionOf<HTMLInputElement>
 
-  const htmlInputs = htmlElement.getElementsByClassName('calculator-components') as HTMLCollectionOf<HTMLInputElement>
+  console.log('htmlElement', htmlElement)
 
-  console.log("htmlElement", htmlElement)
+  const number1 = parseInt(htmlInputs[0].value)
+  const number2 = parseInt(htmlInputs[2].value)
+  const operator = htmlInputs[1].value
 
-  const number1 = parseInt(htmlInputs[0].value);
-  const number2 = parseInt(htmlInputs[2].value);
-  const operator = htmlInputs[1].value;
-  
   switch (operator) {
-    case "+":
-      return console.log(add(number1, number2));
-    case "-":
-      return console.log(minus(number1, number2));
-    case "*":
-      return console.log(multiply(number1, number2));
-    case "/":
-      return console.log(divide(number1, number2));
-    default: 
-      return console.log("No valid operator given");
+    case '+':
+      return console.log(add(number1, number2))
+    case '-':
+      return console.log(minus(number1, number2))
+    case '*':
+      return console.log(multiply(number1, number2))
+    case '/':
+      return console.log(divide(number1, number2))
+    default:
+      return console.log('No valid operator given')
   }
 }
 
@@ -51,7 +52,7 @@ const renderGridTemplate = (): Template[] => {
     type: 'text',
     class: 'calculator-components',
     placeholder: 'Nombre 1',
-    'data-index': 1
+    'data-index': 1,
   }
   template.push(number1)
 
@@ -60,7 +61,7 @@ const renderGridTemplate = (): Template[] => {
     type: 'text',
     class: 'calculator-components',
     placeholder: '+, -, *, /',
-    'data-index': 2
+    'data-index': 2,
   }
   template.push(operator)
 
@@ -69,7 +70,7 @@ const renderGridTemplate = (): Template[] => {
     type: 'text',
     class: 'calculator-components',
     placeholder: 'Nombre 2',
-    'data-index': 3
+    'data-index': 3,
   }
   template.push(number2)
 
@@ -84,12 +85,6 @@ const renderGridTemplate = (): Template[] => {
 }
 
 const Calculator = (): HTMLElement => {
-  const data: CalculatorData = {
-    number1: 0,
-    operator: '',
-    number2: 0
-  }
-
   const htmlWindow = Window('Calculatrice', '/icon_calculator.png', { width: 600, height: 600 })
   const gridTemplate = renderGridTemplate()
 
@@ -104,7 +99,7 @@ const Calculator = (): HTMLElement => {
           {
             tagName: 'h1',
             text: 'Calculatrice',
-            class: 'calculator-title'
+            class: 'calculator-title',
           },
         ],
       },
@@ -115,11 +110,9 @@ const Calculator = (): HTMLElement => {
       },
       {
         tagName: 'div',
-        class: 'calculator-result', 
-      }
+        class: 'calculator-result',
+      },
     ],
-    
-
   }
 
   const htmlElement = renderTemplate(template) as HTMLElement
