@@ -22,7 +22,7 @@ const Layout = (): HTMLElement => {
       {
         tagName: 'img',
         class: 'background',
-        src: '/background.jpg',
+        src: 'background.jpg',
         alt: 'background',
       },
     ],
