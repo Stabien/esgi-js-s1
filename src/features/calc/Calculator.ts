@@ -20,33 +20,25 @@ const divide = (num1: number, num2: number): number => {
 }
 
 const Calc = (htmlElement: HTMLElement): void => {
-
-  const htmlInputs = htmlElement.getElementsByClassName('calculator-components') as HTMLCollectionOf<HTMLInputElement>
+  const htmlInputs = htmlElement.getElementsByClassName(
+    'calculator-components',
+  ) as HTMLCollectionOf<HTMLInputElement>
   const htmlResult = htmlElement.getElementsByClassName('calculator-result')[0] as HTMLInputElement
-  const number1 = parseInt(htmlInputs[0].value);
-  const number2 = parseInt(htmlInputs[2].value);
-  const operator = htmlInputs[1].value;
-  let res: number = 0;
+  const number1 = parseInt(htmlInputs[0].value)
+  const number2 = parseInt(htmlInputs[2].value)
+  const operator = htmlInputs[1].value
+  let res: number = 0
 
-    if(operator == "+")
-       res = add(number1, number2);
-    else if (operator == "-")
-       res = minus(number1, number2);
-    else if (operator == "*")
-       res = multiply(number1, number2);
-    else if (operator == "/"){
-      if (number2 == 0)
-        window.alert("Can't divide by 0")
-        else
-          res = divide(number1, number2);
-    }
-    else 
-       window.alert("No valid operator given");
+  if (operator === '+') res = add(number1, number2)
+  else if (operator === '-') res = minus(number1, number2)
+  else if (operator === '*') res = multiply(number1, number2)
+  else if (operator === '/') {
+    if (number2 === 0) window.alert("Can't divide by 0")
+    else res = divide(number1, number2)
+  } else window.alert('No valid operator given')
 
-    htmlResult.value=res.toString()
+  htmlResult.value = res.toString()
 }
-
-
 
 const renderGridTemplate = (): Template[] => {
   const template: Template[] = []
@@ -70,29 +62,29 @@ const renderGridTemplate = (): Template[] => {
       {
         tagName: 'option',
         value: '',
-        text: 'Operator'
+        text: 'Operator',
       },
       {
         tagName: 'option',
         value: '+',
-        text: '+'
+        text: '+',
       },
       {
         tagName: 'option',
         value: '-',
-        text: '-'
-      },      
+        text: '-',
+      },
       {
         tagName: 'option',
         value: '*',
-        text: '*'
+        text: '*',
       },
       {
         tagName: 'option',
         value: '/',
-        text: '/'
-      }
-    ]
+        text: '/',
+      },
+    ],
   }
   template.push(operator)
 
@@ -116,8 +108,7 @@ const renderGridTemplate = (): Template[] => {
 }
 
 const Calculator = (): HTMLElement => {
-
-  const htmlWindow = Window('Calculatrice', '/icon_calculator.png', { width: 600, height: 600 })
+  const htmlWindow = Window('Calculatrice', 'icon_calculator.png', { width: 600, height: 600 })
   const gridTemplate = renderGridTemplate()
 
   const template: Template = {
@@ -143,15 +134,15 @@ const Calculator = (): HTMLElement => {
       {
         tagName: 'input',
         readonly: 'readonly',
-        class: 'calculator-result', 
-      }
+        class: 'calculator-result',
+      },
     ],
   }
 
   const htmlElement = renderTemplate(template) as HTMLElement
   const parent = htmlWindow.getElementsByClassName('window-content')[0]
   const htmlButton = htmlElement.getElementsByClassName('calculator-button')[0]
-   htmlButton.addEventListener('click', () => Calc(htmlElement))
+  htmlButton.addEventListener('click', () => Calc(htmlElement))
 
   parent.appendChild(htmlElement)
 
