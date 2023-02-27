@@ -98,7 +98,7 @@ const Navbar = (): HTMLElement => {
               {
                 tagName: 'img',
                 class: 'navbar-network-icon',
-                src: '/icon_network.png',
+                src: 'icon_network.png',
                 alt: 'network-icon',
               },
               {
@@ -210,20 +210,20 @@ const Navbar = (): HTMLElement => {
     })
 
   // @ts-expect-errors Typescript does not recognize getBattery prototype on navigator object
-  if (navigator.getBattery()) {
+  if (navigator.getBattery() !== null) {
     // Get battery level and refresh on battery level change
     navigator // @ts-expect-errors Typescript does not recognize getBattery prototype on navigator object
       .getBattery() // @ts-expect-errors Typescript does not recognize BatteryManager on navigator object
       .then((battery: BatteryManager) => {
         if (!settings.batterySettings.hideBattery) {
           const batteryLevel = `${Math.round(battery.level * 100).toString()}%`
-  
+
           htmlBatteryText.innerHTML = batteryLevel
           htmlBatteryProgressBar.style.width = batteryLevel
-  
+
           battery.addEventListener('levelchange', () => {
             const batteryLevel = `${Math.round(battery.level * 100).toString()}%`
-  
+
             htmlBatteryText.innerHTML = batteryLevel
             htmlBatteryProgressBar.style.width = batteryLevel
           })
@@ -231,9 +231,8 @@ const Navbar = (): HTMLElement => {
       })
       .catch((e: string) => {
         throw new Error(e)
-      })  
+      })
   }
-
   return htmlElement
 }
 

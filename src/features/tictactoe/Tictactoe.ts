@@ -87,7 +87,7 @@ const onBoxClick = (e: Event, data: TictactoeData): void => {
       const symbol = data.isPlayerOneTurn ? 'x' : 'o'
       const imgTemplate: Template = {
         tagName: 'img',
-        src: `/tictactoe_${shape}_icon.png`,
+        src: `tictactoe_${shape}_icon.png`,
         alt: `${shape}`,
         class: `${shape}`,
       }
@@ -134,7 +134,7 @@ const Tictactoe = (): HTMLElement => {
     currentScore: [0, 0],
   }
 
-  const htmlWindow = Window('Tic Tac Toe', '/icon_tictactoe.png', { width: 600, height: 600 })
+  const htmlWindow = Window('Tic Tac Toe', 'icon_tictactoe.png', { width: 600, height: 600 })
   const gridTemplate = renderGridTemplate(data)
 
   const template: Template = {

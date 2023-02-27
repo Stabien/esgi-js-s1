@@ -35,25 +35,25 @@ const Layout = (): HTMLElement => {
   const navbar = Navbar()
 
   iconList.appendChild(
-    Icon('TicTacToe', '/icon_tictactoe.png', () => {
+    Icon('TicTacToe', 'icon_tictactoe.png', () => {
       mainContent.appendChild(Tictactoe())
     }),
   )
 
   iconList.appendChild(
-    Icon('Horloge', '/icon_clock.png', () => {
+    Icon('Horloge', 'icon_clock.png', () => {
       mainContent.appendChild(Clock())
     }),
   )
 
   iconList.appendChild(
-    Icon('Paramètres', '/icon_settings.png', () => {
+    Icon('Paramètres', 'icon_settings.png', () => {
       mainContent.appendChild(Settings())
     }),
   )
 
   iconList.appendChild(
-    Icon('Calculatrice', '/icon_calculator.png', () => {
+    Icon('Calculatrice', 'icon_calculator.png', () => {
       mainContent.appendChild(Calculatrice())
     }),
   )

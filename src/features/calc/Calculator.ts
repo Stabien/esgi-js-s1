@@ -85,7 +85,7 @@ const renderGridTemplate = (): Template[] => {
 }
 
 const Calculator = (): HTMLElement => {
-  const htmlWindow = Window('Calculatrice', '/icon_calculator.png', { width: 600, height: 600 })
+  const htmlWindow = Window('Calculatrice', 'icon_calculator.png', { width: 600, height: 600 })
   const gridTemplate = renderGridTemplate()
 
   const template: Template = {

@@ -40,7 +40,7 @@ const Window = (label: string, iconPath: string, size: WindowSize): HTMLElement 
                 children: {
                   tagName: 'img',
                   class: 'window-icon-hide',
-                  src: '/icon_hide.png',
+                  src: 'icon_hide.png',
                   alt: 'icon-hide',
                 },
               },
@@ -51,7 +51,7 @@ const Window = (label: string, iconPath: string, size: WindowSize): HTMLElement 
                 children: {
                   tagName: 'img',
                   class: 'window-icon-close',
-                  src: '/icon_close.png',
+                  src: 'icon_close.png',
                   alt: 'icon-close',
                 },
               },

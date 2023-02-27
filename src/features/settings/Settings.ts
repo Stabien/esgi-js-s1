@@ -308,7 +308,7 @@ const Settings = (): HTMLElement => {
 
   let settings = getSettings()
 
-  const htmlWindow = Window('Paramètres', '/icon_settings.png', { width: 600, height: 600 })
+  const htmlWindow = Window('Paramètres', 'icon_settings.png', { width: 600, height: 600 })
   const htmlElement = renderTemplate(template) as HTMLElement
   const parent = htmlWindow.getElementsByClassName('window-content')[0]
 
