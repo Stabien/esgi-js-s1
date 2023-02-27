@@ -59,10 +59,10 @@ export interface TictactoeData {
 }
 
 export interface CalculatorData {
-
+  number1: number
+  operator: string
+  number2: number
 }
-
-// export type CalculatorState = 'un truc'
 
 export type CalculatorSymbol = '+' | '-' | '/' | '*'
 export interface TimeData {
