@@ -19,7 +19,7 @@ const divide = (num1: number, num2: number): number => {
   return num1 / num2
 }
 
-const Calc = (htmlElement: HTMLElement): void => {
+const calc = (htmlElement: HTMLElement): void => {
   const htmlInputs = htmlElement.getElementsByClassName(
     'calculator-components',
   ) as HTMLCollectionOf<HTMLInputElement>
@@ -27,7 +27,7 @@ const Calc = (htmlElement: HTMLElement): void => {
   const number1 = parseInt(htmlInputs[0].value)
   const number2 = parseInt(htmlInputs[2].value)
   const operator = htmlInputs[1].value
-  let res: number = 0
+  let res = 0
 
   if (operator === '+') res = add(number1, number2)
   else if (operator === '-') res = minus(number1, number2)
@@ -142,7 +142,7 @@ const Calculator = (): HTMLElement => {
   const htmlElement = renderTemplate(template) as HTMLElement
   const parent = htmlWindow.getElementsByClassName('window-content')[0]
   const htmlButton = htmlElement.getElementsByClassName('calculator-button')[0]
-  htmlButton.addEventListener('click', () => Calc(htmlElement))
+  htmlButton.addEventListener('click', () => calc(htmlElement))
 
   parent.appendChild(htmlElement)
 

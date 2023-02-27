@@ -20,7 +20,7 @@
   "rules": {
     "camelcase": "error",
     "spaced-comment": "error",
-    "quotes": ["error", "single"],
+    "quotes": ["error", "single", { "avoidEscape": true }],
     "no-duplicate-imports": "warn",
     "@typescript-eslint/no-explicit-any": "off"
   },

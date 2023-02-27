@@ -210,7 +210,7 @@ const Navbar = (): HTMLElement => {
     })
 
   // @ts-expect-errors Typescript does not recognize getBattery prototype on navigator object
-  if (navigator.getBattery() !== null) {
+  if (navigator.battery !== undefined) {
     // Get battery level and refresh on battery level change
     navigator // @ts-expect-errors Typescript does not recognize getBattery prototype on navigator object
       .getBattery() // @ts-expect-errors Typescript does not recognize BatteryManager on navigator object
