@@ -5,6 +5,7 @@ import { Template } from '../types'
 import Tictactoe from '../features/tictactoe/Tictactoe'
 import Clock from '../features/clock/Clock'
 import Settings from '../features/settings/Settings'
+import Calculatrice from '../features/calc/Calculator'
 
 const Layout = (): HTMLElement => {
   const template: Template = {
@@ -49,6 +50,12 @@ const Layout = (): HTMLElement => {
     Icon('Paramètres', '/icon_settings.png', () => {
       mainContent.appendChild(Settings())
     }),
+  )
+
+  iconList.appendChild(
+    Icon('Calculatrice', '/icon_calculator.png', () => {
+      mainContent.appendChild(Calculatrice())
+    })
   )
 
   htmlElement.append(navbar)

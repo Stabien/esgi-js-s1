@@ -1,1 +1,32 @@
 /* Css for the calculator feature */
+
+.calculator-header {
+    text-align: center;
+}
+
+.calculator-grid {
+    display: flex;
+    gap: 5px;
+    width: fit-content;
+    margin: auto; 
+}
+
+.calculator-components {
+    max-width:70px; 
+    margin-bottom: 20px;
+}
+
+.calculator-button {
+    display: block;
+    width: 220px;
+    margin: 0 auto;
+    background: cadetblue;
+    color: white;
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: 500;
+    border: none;
+    border-radius: 3px;
+    padding: 8px 0;
+    cursor: pointer;
+}
