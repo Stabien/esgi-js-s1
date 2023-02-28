@@ -81,10 +81,15 @@
 @media (max-width: 600px) {
   .window-container {
     width: 100% !important;
+    z-index: 5;
+    top: -50px;
+    left: 0;
+    transform: translate(0%, 0%);
   }
 
   .window-content {
     overflow-y: scroll;
+    height: 100vh !important;
   }
 
   .window-button-hide {
