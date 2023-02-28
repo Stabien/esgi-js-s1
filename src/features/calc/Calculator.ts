@@ -33,77 +33,70 @@ const calc = (htmlElement: HTMLElement): void => {
   else if (operator === '-') res = minus(number1, number2)
   else if (operator === '*') res = multiply(number1, number2)
   else if (operator === '/') {
-    if (number2 === 0) window.alert("Can't divide by 0")
+    if (number2 === 0) window.alert('Impossible de diviser par 0')
     else res = divide(number1, number2)
-  } else window.alert('No valid operator given')
+  } else window.alert('Veuillez séléctionner un opérateur')
 
   htmlResult.value = res.toString()
 }
 
 const renderGridTemplate = (): Template[] => {
-  const template: Template[] = []
-
-  const number1: Template = {
-    tagName: 'input',
-    type: 'text',
-    class: 'calculator-components',
-    placeholder: 'Nombre 1',
-    'data-index': 1,
-  }
-  template.push(number1)
-
-  const operator: Template = {
-    tagName: 'select',
-    type: 'text',
-    class: 'calculator-components',
-    placeholder: '+, -, *, /',
-    'data-index': 2,
-    children: [
-      {
-        tagName: 'option',
-        value: '',
-        text: 'Operateur',
-      },
-      {
-        tagName: 'option',
-        value: '+',
-        text: '+',
-      },
-      {
-        tagName: 'option',
-        value: '-',
-        text: '-',
-      },
-      {
-        tagName: 'option',
-        value: '*',
-        text: '*',
-      },
-      {
-        tagName: 'option',
-        value: '/',
-        text: '/',
-      },
-    ],
-  }
-  template.push(operator)
-
-  const number2: Template = {
-    tagName: 'input',
-    type: 'text',
-    class: 'calculator-components',
-    placeholder: 'Nombre 2',
-    'data-index': 3,
-  }
-  template.push(number2)
-
-  const equalButton: Template = {
-    tagName: 'button',
-    class: 'calculator-button',
-    text: '=',
-  }
-  template.push(equalButton)
-
+  const template: Template[] = [
+    {
+      tagName: 'div',
+      class: 'calculator-input-container',
+      children: [
+        {
+          tagName: 'input',
+          type: 'number',
+          class: 'calculator-components',
+          placeholder: 'Nombre 1',
+          'data-index': 1,
+        },
+        {
+          tagName: 'select',
+          type: 'text',
+          class: 'calculator-components calculator-operator',
+          placeholder: '+, -, *, /',
+          'data-index': 2,
+          children: [
+            {
+              tagName: 'option',
+              value: '+',
+              text: '+',
+            },
+            {
+              tagName: 'option',
+              value: '-',
+              text: '-',
+            },
+            {
+              tagName: 'option',
+              value: '*',
+              text: '×',
+            },
+            {
+              tagName: 'option',
+              value: '/',
+              text: '÷',
+            },
+          ],
+        },
+        {
+          tagName: 'input',
+          type: 'number',
+          class: 'calculator-components',
+          placeholder: 'Nombre 2',
+          'data-index': 3,
+        },
+      ],
+    },
+    {
+      tagName: 'button',
+      class: 'calculator-button',
+      text: '=',
+    },
+  ]
   return template
 }
 

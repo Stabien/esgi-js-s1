@@ -19,8 +19,6 @@ const startTimer = (
   const htmlSeconds = htmlElement.getElementsByClassName('clock-timer-seconds')[0]
   const htmlMilliseconds = htmlElement.getElementsByClassName('clock-timer-milliseconds')[0]
 
-  console.log(htmlElement)
-
   return setInterval(() => {
     timeData.millisecond += 1
 
