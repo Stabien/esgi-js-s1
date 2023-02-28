@@ -92,7 +92,9 @@
 
 @media (max-width: 600px) {
   .navbar-container {
-    margin-bottom: 30px;
+    position: absolute;
+    top: 10px;
+    left: 0;
   }
   .navbar-windows-icon-container {
     display: none;

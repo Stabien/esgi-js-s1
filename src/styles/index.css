@@ -36,3 +36,9 @@ main {
   position: relative;
   height: calc(100% - 55px);
 }
+
+@media (max-width: 600px) {
+  .main-content {
+    margin-top: 60px;
+  }
+}
