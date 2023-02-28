@@ -62,7 +62,7 @@ const renderGridTemplate = (): Template[] => {
       {
         tagName: 'option',
         value: '',
-        text: 'Operator',
+        text: 'Operateur',
       },
       {
         tagName: 'option',
