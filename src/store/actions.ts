@@ -68,7 +68,6 @@ export const setTictactoeScores = (): void => {
 
     request.onsuccess = (): any => {
       state.tictactoeScores = request.result
-      console.log(state)
     }
 
     request.onerror = () => {
