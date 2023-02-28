@@ -91,6 +91,9 @@
 }
 
 @media (max-width: 600px) {
+  .navbar-container {
+    margin-bottom: 30px;
+  }
   .navbar-windows-icon-container {
     display: none;
   }

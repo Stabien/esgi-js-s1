@@ -81,10 +81,12 @@
 @media (max-width: 600px) {
   .window-container {
     width: 100% !important;
+    top: calc(50% + 30px);
   }
 
   .window-content {
     overflow-y: scroll;
+    height: 80vh !important;
   }
 
   .window-button-hide {
