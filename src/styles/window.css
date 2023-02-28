@@ -89,7 +89,7 @@
 
   .window-content {
     overflow-y: scroll;
-    height: calc(100dvh - 15px) !important;
+    height: calc(100dvh - 25px) !important;
   }
 
   .window-button-hide {
